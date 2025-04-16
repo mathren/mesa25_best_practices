@@ -1,0 +1,35 @@
+#+Title: Best practices - MESA Summer School 2025
+#+date: <2025-07-24 Thu>
+
+Materials for the Thursday morning lab at the [[https://mesa-leuven.4d-star.org/][MESA summer school 2025]]
+to be held in KU Leuven.
+
+** Best Practices
+
+*** Debugging
+loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html][this documentation]]
+
+*** Developing
+- [[https://github.com/mathren/compare_workdir_MESA][compare inlist ignoring order, comments, and defaults]]
+- going from test case to physically sound setup
+
+*** Open science & reproducibility
+Maybe make checklist to consult
+- e.g., Farmer+2020 \rightarrow Mehta+2021
+- zenodo:
+  - minimal work examples (\rightarrow how to ask a good question on the mailing
+    list)
+  - data: profiles and history
+  - postprocessing scripts
+  - README mapping figure/result \leftrightarrow scripts \leftrightarrow data \leftrightarrow code
+- give proper credits in your citation
+  - input physics
+  - algorithmic implementation
+  - /all/ code papers
+- consider "donating time" to help others
+
+** References
+
+Relevant MESA documentation pages:
+- [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
+- [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
