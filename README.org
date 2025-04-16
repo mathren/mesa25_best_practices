@@ -4,18 +4,34 @@
 Materials for the Thursday morning lab at the [[https://mesa-leuven.4d-star.org/][MESA summer school 2025]]
 to be held in KU Leuven.
 
-** Best Practices
+** Debugging
 
-*** Debugging
-loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html][this documentation]]
+loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html][this documentation]].
 
-*** Developing
-- [[https://github.com/mathren/compare_workdir_MESA][compare inlist ignoring order, comments, and defaults]]
+*Idea*: start from =*.mod= file and study envelope velocities and crashes
+Maybe show adding drag makes model go?
+
+*** Testing
+
+Tests in [[./15Msun_late]]
+Use one core by running
+
+#+begin_src sh
+export OMP_NUM_THREADS=1
+#+end_src
+
+**** Requirements
+ [[https://docs.mesastar.org/en/24.08.1/installation.html][MESA 24.08.1]] (tested with [[http://user.astro.wisc.edu/~townsend/static.php?ref=mesasdk][MESA SDK]] "x86_64-linux-24.7.1")
+
+** Developing
+- [[https://github.com/mathren/compare_workdir_MESA][compare inlist ignoring order, comments, nesting, and defaults]]
 - going from test case to physically sound setup
 
-*** Open science & reproducibility
+** Open science & reproducibility
 Maybe make checklist to consult
-- e.g., Farmer+2020 \rightarrow Mehta+2021
+- example: [[https://ui.adsabs.harvard.edu/abs/2020ApJ...902L..36F/abstract][Farmer et al. 2020]] \rightarrow [[https://ui.adsabs.harvard.edu/abs/2022ApJ...924...39M/abstract][Mehta et al. 2021]] and
+  updates in input physics, Beyond Standard Model Physics in stellar
+  explosions
 - zenodo:
   - minimal work examples (\rightarrow how to ask a good question on the mailing
     list)
@@ -27,9 +43,14 @@ Maybe make checklist to consult
   - algorithmic implementation
   - /all/ code papers
 - consider "donating time" to help others
+- *Bonus*: [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 
 ** References
 
 Relevant MESA documentation pages:
 - [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
 - [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
+Contribute back ready-to-use routines:
+- [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
+Tooling:
+- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlisted]]
