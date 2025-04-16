@@ -5,3 +5,4 @@ make/*.mod
 LOGS/*
 *.data
 *.list
+photos/*
