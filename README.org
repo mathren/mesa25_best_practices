@@ -53,4 +53,4 @@ Relevant MESA documentation pages:
 Contribute back ready-to-use routines:
 - [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 Tooling:
-- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlisted]]
+- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
