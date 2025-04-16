@@ -1,0 +1,7 @@
+./mesa_temp_cache/*
+star
+make/*.o
+make/*.mod
+LOGS/*
+*.data
+*.list
