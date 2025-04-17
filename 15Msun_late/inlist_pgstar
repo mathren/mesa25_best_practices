@@ -207,12 +207,12 @@ Profile_Panels1_title                     = ''
 
 Profile_Panels1_xaxis_name                = 'mass'
 Profile_Panels1_show_grid                 = .true.
-! Profile_Panels1_xmin                      = 0d0  ! only used if /= -101d0
-! Profile_Panels1_xmax                      =  !
+! Profile_Panels1_xmin                    = 0d0  ! only used if /= -101d0
+! Profile_Panels1_xmax                    =  !
 Profile_Panels1_num_panels                = 4
 
 Profile_Panels1_yaxis_name(1)             = 'velocity'
-Profile_Panels1_other_yaxis_name(1)       = 'tau' ! 'v_div_v_escape' ! 'mass'
+Profile_Panels1_other_yaxis_name(1)       = 'v_div_csound' ! 'v_div_v_escape' ! 'mass'
 ! Profile_Panels1_other_ymin(1)           = 0d0
 ! Profile_Panels1_other_ymax(1)           = 1d0
 
@@ -223,14 +223,14 @@ Profile_Panels1_other_yaxis_name(2)       = 'gradT'
 
 Profile_Panels1_yaxis_name(3)             = 'luminosity'
 Profile_Panels1_other_yaxis_name(3)       = 'opacity' ! 'mass' !'v_div_csound' ! 'vel_km_per_s'
-Profile_Panels1_yaxis_log(3)      = .true.
+Profile_Panels1_yaxis_log(3)              = .true.
 
 
 Profile_Panels1_yaxis_name(4)             =  'log_Ledd'
 Profile_Panels1_yaxis_log(4)              = .false.
 Profile_Panels1_other_yaxis_name(4)       = 'log_Lconv'
 ! Profile_Panels1_other_ymax(4)           = 1d5
-Profile_Panels1_other_ymin(4)           = 1d-15
+Profile_Panels1_other_ymin(4)             = 1d-15
 ! Profile_Panels1_dymin(4)                = 0.1
 
 show_TRho_Profile_kap_regions             = .false.
