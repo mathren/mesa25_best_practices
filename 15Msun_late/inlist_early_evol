@@ -1,6 +1,6 @@
 &star_job
 
-create_pre_main_sequence_model                  = .true.
+create_pre_main_sequence_model                  = .false.
 
 ! save at the end of the run
 save_model_when_terminate                       = .true.

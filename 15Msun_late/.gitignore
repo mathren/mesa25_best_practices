@@ -7,3 +7,5 @@ LOGS/*
 *.list
 photos/*
 restart_photo
+png/*
+*.mp4
