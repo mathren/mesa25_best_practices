@@ -32,7 +32,7 @@ Maybe make checklist to consult
 - example: [[https://ui.adsabs.harvard.edu/abs/2020ApJ...902L..36F/abstract][Farmer et al. 2020]] \rightarrow [[https://ui.adsabs.harvard.edu/abs/2022ApJ...924...39M/abstract][Mehta et al. 2021]] and
   updates in input physics, Beyond Standard Model Physics in stellar
   explosions
-- zenodo:
+- [[http://zenodo.org][Zenodo]]:
   - minimal work examples (\rightarrow how to ask a good question on the mailing
     list)
   - data: profiles and history
