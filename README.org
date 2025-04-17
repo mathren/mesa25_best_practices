@@ -50,6 +50,7 @@ Maybe make checklist to consult
 Relevant MESA documentation pages:
 - [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
 - [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
+- [[https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10][MESA community on zenodo]]
 Contribute back ready-to-use routines:
 - [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 Tooling:
