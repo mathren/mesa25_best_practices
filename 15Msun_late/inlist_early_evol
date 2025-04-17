@@ -2,11 +2,10 @@
 
 create_pre_main_sequence_model                  = .false.
 
-! save at the end of the run
 save_model_when_terminate                       = .true.
-save_model_filename                             = '15M_Cdepl.mod'
+save_model_filename                             = '15M_early_evol.mod'
 write_profile_when_terminate                    = .true.
-filename_for_profile_when_terminate             = 'LOGS/15M_Cdepl.data'
+filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
 show_timestep_limit_counts_when_terminate       = .true.
 show_retry_counts_when_terminate                = .true.
 
@@ -16,25 +15,26 @@ change_net                                      = .true.
 new_net_name                                    = "approx21_cr56.net" !  ! 'mesa_206.net'
 
 !! rates
-num_special_rate_factors = 2
-reaction_for_special_factor(1) = 'r_c12_ag_o16'
-special_rate_factor(1) = 1
-filename_of_special_rate(1) = 'c12ag_deboer_sigma_0p0_2000_Tgrid.dat'
+num_special_rate_factors                        = 2
+reaction_for_special_factor(1)                  = 'r_c12_ag_o16'
+special_rate_factor(1)                          = 1
+filename_of_special_rate(1)                     = 'c12ag_deboer_sigma_0p0_2000_Tgrid.dat'
 
-reaction_for_special_factor(2) = 'r_he4_he4_he4_to_c12'
-special_rate_factor(2) = 1
-filename_of_special_rate(2) = 'r_he4_he4_he4_to_c12_cf88.txt'
+reaction_for_special_factor(2)                  = 'r_he4_he4_he4_to_c12'
+special_rate_factor(2)                          = 1
+filename_of_special_rate(2)                     = 'r_he4_he4_he4_to_c12_cf88.txt'
 
-! num_special_rate_factors                        = 2
-! reaction_for_special_factor(1)                  = 'r_c12_ag_o16'
-! special_rate_factor(1)                          = 1
-! filename_of_special_rate(1)                     = 'r_c12_ag_o16_kunz.txt'
+! old Kunz et al. 2002 rate
+! num_special_rate_factors                      = 2
+! reaction_for_special_factor(1)                = 'r_c12_ag_o16'
+! special_rate_factor(1)                        = 1
+! filename_of_special_rate(1)                   = 'r_c12_ag_o16_kunz.txt'
 
-! reaction_for_special_factor(2)                  = 'r_he4_he4_he4_to_c12'
-! special_rate_factor(2)                          = 1
-! filename_of_special_rate(2)                     = 'r_he4_he4_he4_to_c12_cf88.txt'
+! reaction_for_special_factor(2)                = 'r_he4_he4_he4_to_c12'
+! special_rate_factor(2)                        = 1
+! filename_of_special_rate(2)                   = 'r_he4_he4_he4_to_c12_cf88.txt'
 
-! we want to use weaklib all the time, so we toggle at lowT.
+!! we want to use weaklib all the time, so we toggle at lowT.
 T9_weaklib_full_off                             = 0.0001d0
 T9_weaklib_full_on                              = 0.00011d0
 
@@ -57,15 +57,12 @@ save_pgstar_files_when_terminate                = .true.
 
 
 &eos
-! eos options
-! see eos/defaults/eos.defaults
 
 / ! end of eos namelist
 
 
 &kap
-! kap options
-! see kap/defaults/kap.defaults
+
 use_Type2_opacities                             = .true.
 Zbase                                           = 0.02
 
@@ -73,12 +70,13 @@ Zbase                                           = 0.02
 
 
 &controls
+
 ! starting specifications
 initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-
+max_model_number                                =  1000 ! stop shortly before the envelope starts to go crazy
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -152,8 +150,8 @@ max_abs_rel_run_E_err                           = 1d-2 ! maximum energy error be
 ! timesteps
 time_delta_coeff                                = 1d0
 min_timestep_limit                              = 1e-20 !sec ! 1e-10 !to be able to reach CC
-! varcontrol_target                               = 1d-3 !1d-4
-! max_timestep_factor                             = 1.05d0
+! varcontrol_target                             = 1d-3 !1d-4
+! max_timestep_factor                           = 1.05d0
 retry_hold                                      = 2
 
 ! mesh
