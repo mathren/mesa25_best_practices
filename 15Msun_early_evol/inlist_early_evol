@@ -76,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-max_model_number                                =  1000 ! stop shortly before the envelope starts to go crazy
+max_model_number                                =  1300 ! stop shortly before the envelope starts to go crazy
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -149,7 +149,7 @@ max_abs_rel_run_E_err                           = 1d-2 ! maximum energy error be
 
 ! timesteps
 time_delta_coeff                                = 1d0
-min_timestep_limit                              = 1e-20 !sec ! 1e-10 !to be able to reach CC
+min_timestep_limit                              = 1e0 !sec ! 1e-20 !to be able to reach CC
 ! varcontrol_target                             = 1d-3 !1d-4
 ! max_timestep_factor                           = 1.05d0
 retry_hold                                      = 2
