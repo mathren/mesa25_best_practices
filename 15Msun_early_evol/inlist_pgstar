@@ -1,6 +1,6 @@
 &pgstar
 
-pgstar_interval                           = 50
+pgstar_interval                           = 1
 ! pgplot on screen
 Grid2_win_flag                            = .false.
 Profile_Panels1_win_flag                  = .false.
@@ -12,10 +12,10 @@ Profile_Panels1_file_flag                 = .false.
 Profile_Panels3_file_flag                 = .false.
 Profile_Panels5_file_flag                 = .false.
 ! interval for files
-Grid2_file_interval                       = 100 ! output when mod(model_number,Grid2_file_interval)==0
+Grid2_file_interval                       = 1 ! output when mod(model_number,Grid2_file_interval)==0
 Profile_Panels1_file_interval             = 100
 Profile_Panels3_file_interval             = 100
-Profile_Panels5_file_interval             = 1
+Profile_Panels5_file_interval             = 100
 
 pause                                     = .false.
 
@@ -99,14 +99,14 @@ History_Panels1_other_yaxis_reversed(1)   = .false.
 ! History_Panels1_other_ymax(1)           = 1.1d0 ! only used if /= -101d0
 ! History_Panels1_other_dymin(1)          = 0.05d0
 
-History_Panels1_yaxis_name(2)             = 'surf_avg_v_rot'
+History_Panels1_yaxis_name(2)             = 'v_surf_div_escape_v'
 History_Panels1_yaxis_reversed(2)         = .false.
 ! History_Panels1_ymin(2)                 = 0d0 ! only used if /= -101d0
 ! History_Panels1_ymax(2)                 = 20d0 ! only used if /= -101d0
 
 History_Panels1_dymin(2)                  = 1
 
-History_Panels1_other_yaxis_name(2)       = 'log_Teff'
+History_Panels1_other_yaxis_name(2)       = 'v_surf_km_s'
 History_Panels1_other_yaxis_reversed(2)   = .false.
 ! History_Panels1_other_ymin(2)           = 0d0 ! only used if /= -101d0
 ! History_Panels1_other_ymax(2)           = 1.1d0 ! only used if /= -101d0
@@ -128,8 +128,8 @@ Text_Summary1_name(2,1)                   = 'star_age'
 Text_Summary1_name(3,1)                   = 'time_step'
 Text_Summary1_name(4,1)                   = 'kh_timescale'
 Text_Summary1_name(5,1)                   = 'mdot_timescale'
-Text_Summary1_name(6,1)                   = 'surf_avg_omega_div_omega_crit'
-Text_Summary1_name(7,1)                   = 'surf_avg_v_rot'
+Text_Summary1_name(6,1)                   = 'v_surf_km_s'
+Text_Summary1_name(7,1)                   = 'v_surf_div_escape_v'
 Text_Summary1_name(8,1)                   = 'radius'
 
 Text_Summary1_name(1,2)                   = 'star_mass'
@@ -160,13 +160,12 @@ Text_Summary1_name(8,4)                   = 'surface_he4'
 
 Grid2_plot_name(3)                        = 'Profile_Panels3'
 Profile_Panels3_title                     = 'Abundance-Rotation-Mixing'
-Profile_Panels3_num_panels                = 4
+Profile_Panels3_num_panels                = 3
 Profile_Panels3_yaxis_name(1)             = 'Abundance'
-Profile_Panels3_yaxis_name(2)             = 'Dynamo'
-Profile_Panels3_yaxis_name(3)             = 'Mixing'
-Profile_Panels3_yaxis_name(4)             = 'Power'
+Profile_Panels3_yaxis_name(2)             = 'Mixing'
+Profile_Panels3_yaxis_name(3)             = 'Power'
 
-Profile_Panels3_xaxis_name                = 'logR' !'mass' !
+Profile_Panels3_xaxis_name                = 'mass'
 Profile_Panels3_xaxis_reversed            = .false.
 ! Profile_Panels3_xmin                    = -101d0 ! only used if /= -101d0
 ! Profile_Panels3_xmax                    = 5d0 ! 10 ! only used if /= -101d0
@@ -211,7 +210,7 @@ Profile_Panels1_show_grid                 = .true.
 ! Profile_Panels1_xmax                    =  !
 Profile_Panels1_num_panels                = 4
 
-Profile_Panels1_yaxis_name(1)             = 'velocity'
+Profile_Panels1_yaxis_name(1)             = 'vel_km_per_s'
 Profile_Panels1_other_yaxis_name(1)       = 'v_div_csound' ! 'v_div_v_escape' ! 'mass'
 ! Profile_Panels1_other_ymin(1)           = 0d0
 ! Profile_Panels1_other_ymax(1)           = 1d0
