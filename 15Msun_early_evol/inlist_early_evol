@@ -174,13 +174,13 @@ gold2_tol_max_residual2                         = 5d-7
 gold2_tol_max_residual3                         = 5d-4
 
 ! limit number of retries for speed up
-    retry_limit = 5
+retry_limit                                     = 10
 
 
 ! output
 profile_interval                                = 1000
 max_num_profile_models                          = 5
-photo_interval                                  = 50
+photo_interval                                  = 25
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
