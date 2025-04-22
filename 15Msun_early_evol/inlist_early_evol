@@ -173,10 +173,18 @@ use_gold2_tolerances                            = .true.
 gold2_tol_max_residual2                         = 5d-7
 gold2_tol_max_residual3                         = 5d-4
 
+! limit number of retries for speed up
+max_tries_for_retry                             = 5
+max_tries_after_5_retries                       = 7
+max_tries_after_10_retries                      = 10
+max_tries_after_20_retries                      = 12
+retry_limit                                     = 10
+
+
 ! output
 profile_interval                                = 1000
 max_num_profile_models                          = 5
-photo_interval                                  = 25
+photo_interval                                  = 50
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
