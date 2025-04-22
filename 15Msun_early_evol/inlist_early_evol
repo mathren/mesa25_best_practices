@@ -76,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-max_model_number                                =  1000 ! stop shortly before the envelope starts to go crazy
+! max_model_number                                =  1000 ! stop shortly before the envelope starts to go crazy
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -175,7 +175,8 @@ gold2_tol_max_residual3                         = 5d-4
 
 ! output
 profile_interval                                = 1000
-max_num_profile_models                          = 52
+max_num_profile_models                          = 5
+photo_interval                                  = 25
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
