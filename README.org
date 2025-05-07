@@ -44,8 +44,7 @@ Use one core by running
 export OMP_NUM_THREADS=1
 #+end_src
 
-** References
-
+** Useful references
 Relevant MESA documentation pages:
 - [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
 - [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
