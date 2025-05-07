@@ -19,7 +19,7 @@ loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html
 *** Open science & reproducibility
 Maybe make checklist to consult
 - e.g., [[https://ui.adsabs.harvard.edu/abs/2020ApJ...902L..36F/abstract][Farmer et al. 2020]] \rightarrow [[https://ui.adsabs.harvard.edu/abs/2022ApJ...924...39M/abstract][Mehta et al. 2022]]
-- zenodo:
+- zenodo (refer to [[https://zenodo.org/communities/mesa/curation-policy][guidelines]]):
   - minimal work examples (\rightarrow how to ask a good question on the mailing
     list)
   - data: profiles and history
