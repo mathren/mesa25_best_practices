@@ -76,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! log_center_temp_upper_limit = 9.35d0
+log_center_temp_upper_limit                     = 9.35d0 ! to save starting point
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -125,9 +125,6 @@ min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
-! use_drag_energy                                 = .false.
-! drag_coefficient                                = 0.9d0
-! min_q_for_drag                                  = 0.8d0
 
 ! nuclear physics
 ! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
