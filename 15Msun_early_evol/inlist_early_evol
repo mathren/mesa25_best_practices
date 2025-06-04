@@ -2,9 +2,9 @@
 
 create_pre_main_sequence_model                  = .false.
 
-save_model_when_terminate                       = .true.
+save_model_when_terminate                       = .false.
 save_model_filename                             = '15M_early_evol.mod'
-write_profile_when_terminate                    = .true.
+write_profile_when_terminate                    = .false.
 filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
 show_timestep_limit_counts_when_terminate       = .true.
 show_retry_counts_when_terminate                = .true.
@@ -76,7 +76,8 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! max_model_number                                =  1000 ! stop shortly before the envelope starts to go crazy
+! max_model_number                              =  1125 ! to save photo and profile
+log_center_temp_upper_limit                     = 9.35d0
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -173,14 +174,9 @@ use_gold2_tolerances                            = .true.
 gold2_tol_max_residual2                         = 5d-7
 gold2_tol_max_residual3                         = 5d-4
 
-! limit number of retries for speed up
-retry_limit                                     = 10
-
-
 ! output
 profile_interval                                = 1000
-max_num_profile_models                          = 5
-photo_interval                                  = 25
+max_num_profile_models                          = 52
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
