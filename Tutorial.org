@@ -126,10 +126,10 @@ iterations.
 Restart now again from the photo =x125=: you should get more output.
 
 
-*N.B.:* You may need to remove the =LOGS/history.data= file to be able to
-run, or (*this is a destructive action that may cause data loss*) you
-can simply remove the entire folder if this happens. MESA will
-re-create it if needed.
+# *N.B.:* You may need to remove the =LOGS/history.data= file to be able to
+# run, or (*this is a destructive action that may cause data loss*) you
+# can simply remove the entire folder if this happens. MESA will
+# re-create it if needed.
 
 
 ** Wrap up
