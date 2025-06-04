@@ -44,10 +44,10 @@ Download the =15Msun_problem= folder. The main =inlist= points to
 science-ready!
 
 After initializing MESA and running =./clean && ./mk=
-start from the provided photo (=photos/x125=) with:
+start from the provided photo (=photos/x150=) with:
 
 #+begin_src bash
-./re x125
+./re x150
 #+end_src
 
 *N.B.:* We have modified the =./rn= bash script to add an extra check in
@@ -59,7 +59,7 @@ to get an idea of what's going on:
 
 
 
-At model =1153= you should hit the =min_timestep_limit= condition, which is set to
+At model =1157= you should hit the =min_timestep_limit= condition, which is set to
 0.1 seconds.
 
 *N.B.:* This is not a sufficiently low threshold for production
@@ -123,7 +123,7 @@ iterations.
 # So if this becomes non-zero, this means there was some internal error,
 # and we want to be able to see where.
 
-Restart now again from the photo =x125=: you should get more output.
+Restart now again from the photo =x150=: you should get more output.
 
 
 # *N.B.:* You may need to remove the =LOGS/history.data= file to be able to
