@@ -56,7 +56,7 @@ case you really want to start from the beginning.
 Watch your model evolve. The terminal output is often the quickest way
 to get an idea of what's going on:
 
-At model 1156 you should hit the =min_timestep_limit= condition, which is set to
+At model =1153= you should hit the =min_timestep_limit= condition, which is set to
 0.1 seconds.
 
 *N.B.:* This is not a sufficiently low threshold for production
@@ -74,7 +74,60 @@ around and needs to be fixed.
 ** But what is the problem?
 
 To identify the problem, the first thing is to plot profiles. It is
-often helpful to look at
+often helpful to look at =pgplots=.
+Very often, with a bit of physical intuition and experience one can
+identify the problem just looking at some plots.
+
+A pro-tip is to look at variables you don't necessarily focus on for
+your science: sometimes it's things you don't care about that grind
+your model(s) or grids to a halt! Stellar evolution is a highly
+non-linear problem. Sometimes changing axes to change perspective can
+also help.
+
+- [ ] more onpgplots?
+
+But what if it's a new problem you don't have intuition for, or if you
+just can't pin-point it just plotting things? Then we need to look
+under the hood, in the solver iterations, to find which equations is
+the most problematic!
+
+*** MESA's debugging output
+We will instruct MESA to provide debugging output we don't normally
+want to see. To do this we will use a particular set of =controls= in
+out inlist, which are described in the MESA documentation at
+=$MESA_DIR/star/defaults/controls.defaults/= or [[https://docs.mesastar.org/en/latest/developing/debugging.html#step-1-activate-debugging-options][online]], and also
+collected for convenience in
+=$MESA_DIR/star/test_suite/debugging_stuff_for_inlists=.
+
+Copy the content of this file in your =inlist_problem= in the =controls=
+namelist. Everything is commented (=!= in Fortran 90, used also in the
+inlists which are not proper Fortran files), uncomment
+
+#+begin_src fortran
+  report_solver_progress = .true.
+  report_ierr = .true.
+#+end_src
+
+The first line just allows us to get some output about the solver
+iterations.
+
+The second line is about =ierr=. It is an internal variable used
+throughout the code, which you can find defined in
+=$MESA_DIR/star_data/public/star_data_def.inc= where it says:
+
+#+begin_src fortran
+    integer, intent(out) :: ierr ! 0 means AOK.
+#+end_src
+
+So if this becomes non-zero, this means there was some internal error,
+and we want to be able to see where.
+
+Restart now again from the photo =x125=: you should get more output.
+
+*N.B.:* You may need to remove the =LOGS/history.data= file to be able to
+run, or (*this is a destructive action that may cause data loss*) you
+can simply remove the entire folder if this happens. MESA will
+re-create it if needed.
 
 
 ** Wrap up
@@ -93,3 +146,9 @@ For the problem of velocities we worked on, typical approaches are to
 "put a lid" on the star, increasing the surface pressure (e.g. with
 =P_extra_factor=), increasing wind mass-loss rates to "get rid" of the
 envelope, etc. It's up to you to experiment!
+
+*** Full solution
+
+An inlist with the full solution is provided as a hidden file
+=.inlist_solution=. You can rename it and/or point your main =inlist= to
+it (MESA will read a hidden file!)
