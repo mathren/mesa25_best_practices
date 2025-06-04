@@ -148,7 +148,7 @@ residual is jumping from negative to positive from iteration =20= to
 iteration =21=. Finally, during these iterations, =lnd= (that is
 physically, the density) is the problematic variable.
 
-*** *Optional*: confirming this
+**** *Optional*: confirming this
 
 Because MESA is searching for a solution with a Newton-Raphson solver,
 the corrections applied at each iterations of the solver depend on the
@@ -167,24 +167,69 @@ solver_test_partials_var_name = 'lnd'
 solver_test_partials_dx_0 = 1d-5
 #+end_src
 
-This tells MESA we want more output at solver call number =1399=, we
-want to inspect the =21= iteration of the solver, and we want to see the
-partial derivatives of the luminosity equation w.r.t. =lnd=. This will
-also make MESA crash right after that iteration of the solver, scroll
-up to see the output:
-
-
-
-
 *N.B.:* At this stage you may also want to set
 =solver_save_photo_call_number= equal to the solver call of the problem
-(in our case =1399=) so MESA will save a =photo=
-just before this solver call, saving you time to debug
+(in our case =1399=) so MESA will save a =photo= just before this solver
+call, saving you time to debug.
+
+This tells MESA we want more output at solver call number =1399=, we
+want to inspect the =21= iteration of the solver, and we want to see the
+partial derivatives of the luminosity equation w.r.t. =lnd=. *This will
+also make MESA crash right after that iteration of the solver*: you
+will need to undo these changes to continue. Scroll up to see the
+output:
+
+#+DOWNLOADED: screenshot @ 2025-06-04 16:29:50
+[[file:.org_notes_figures/Late_massive_star_evolution/2025-06-04_16-29-50_screenshot.png]]
+
+which confirms that the suspected partial derivative is the culprit of
+the problem.
+
+*** The problem
+
+The problem appears to be in the equation =equL= (see
+=$MESA_DIR/star_data/public/star_data_step_input.inc=) to confirm this
+is the luminosity equation, and specifically the variable =lnd=, the
+density.
+
 ** Finding a solution
 
 There may be more than one! This is where computing stellar structure
 and evolution models is a bit of an art, experience, trial and error,
 and /many/ wasted CPUh.
+
+Since the problem is in the luminosity equation, one naive thing one
+can do is to ignore the residuals of those equation.
+
+There is a =controls= flag to do this in MESA: this suggests this is a
+common enough problem!
+
+:Hint:
+Look in =$MESA_DIR/star/defaults/controls.defaults= or in the online
+documentation to see if you find a suitable flag.
+:end:
+
+:Hint:
+You can search the file for =convergence_ignore= to find suitable options
+:end:
+
+:Hint:
+Try adding this to the =controls= namelist of your inlist:
+#+begin_src fortran 90
+    convergence_ignore_equL_residuals = .true.
+#+end_src
+:end:
+
+This is of course *not* an elegant solution to be used with extra care
+only if acceptable for your scientific purposes.
+
+Ideally, when doing science you don't want to "just ignore" residuals
+of any equation: this effectively means you are *not* solving that
+equation anymore.
+
+In practice however, this particular trick is sometimes used in
+publications.
+
 
 ** After you found the solution
 
@@ -257,3 +302,4 @@ it (MESA will read a hidden file!)
 
 - [ ] more onpgplots?
 - [ ] describe =report_solver_progress= output (see )
+- [ ] expand on viability of ignoring residuals
