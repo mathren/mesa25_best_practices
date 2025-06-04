@@ -105,22 +105,22 @@ inlists which are not proper Fortran files), uncomment
 
 #+begin_src fortran
   report_solver_progress = .true.
-  report_ierr = .true.
 #+end_src
 
 The first line just allows us to get some output about the solver
 iterations.
 
-The second line is about =ierr=. It is an internal variable used
-throughout the code, which you can find defined in
-=$MESA_DIR/star_data/public/star_data_def.inc= where it says:
+# possibly not needed
+# The second line is about =ierr=. It is an internal variable used
+# throughout the code, which you can find defined in
+# =$MESA_DIR/star_data/public/star_data_def.inc= where it says:
 
-#+begin_src fortran
-    integer, intent(out) :: ierr ! 0 means AOK.
-#+end_src
+# #+begin_src fortran
+#     integer, intent(out) :: ierr ! 0 means AOK.
+# #+end_src
 
-So if this becomes non-zero, this means there was some internal error,
-and we want to be able to see where.
+# So if this becomes non-zero, this means there was some internal error,
+# and we want to be able to see where.
 
 Restart now again from the photo =x125=: you should get more output.
 
