@@ -2,6 +2,25 @@
 
 rm -f restart_photo
 
-date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
-./star
-date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+echo "Are you sure you want to start from ZAMS? this will be longer than expected!"
+echo "You may want to consider running"
+echo "       ./re x125"
+echo " for the MESA summer school exercise"
+
+read -p "Do you want to proceed from ZAMS anyways? (y/n): " answer
+if [[ $answer == "y" || $answer == "Y" ]]; then
+    echo "Let's go from ZAMS!"
+    date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+    ./star
+    date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+else
+    echo "Assuming it exists..."
+    read -p "...maybe you want to start from photos/x125? (y/n): " answer
+    if [[ $answer == "y" || $answer == "Y" ]]; then
+    date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+    ./re x125
+    date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+    else
+	exit 1
+    fi
+fi
