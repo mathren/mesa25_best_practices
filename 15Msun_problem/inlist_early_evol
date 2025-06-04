@@ -76,10 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-max_model_number                                =  1125
-! xa_central_lower_limit_species(1)               = 'o16'
-! xa_central_lower_limit(1)                       = 0.1 ! Let's call "Oxygen depletion" a success for summer school purposes
-log_center_temp_upper_limit = 9.35d0
+! log_center_temp_upper_limit = 9.35d0
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -124,10 +121,13 @@ semiconvection_option                           = 'Langer_85 mixing; gradT = gra
 thermohaline_option                             = 'Kippenhahn'
 ! arbitrary mixing to smooth things
 set_min_D_mix                                   = .true.
-min_D_mix                                       =1d-2
+min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
+! use_drag_energy                                 = .false.
+! drag_coefficient                                = 0.9d0
+! min_q_for_drag                                  = 0.8d0
 
 ! nuclear physics
 ! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
