@@ -1,0 +1,95 @@
+#+Title: Best practices - MESA Summer School 2025
+
+* Late massive star evolution
+
+Massive star models become numerically more challenging as they
+evolve. Numerical issues manifest as plummeting timesteps. Broadly
+speaking, these can be seeded in either "the core" (where nuclear
+burning of heavy elements stiffens the equations) and/or "the
+envelope" (where small timesteps result in waves and occasionally
+spurious artificial accelerations). The two kind of issues can also
+interact non-linearly, resulting in the majority of a grid crashing.
+
+*N.B.:* this is not exclusively a "MESA" problem, but a result of the
+physics being described by progressively stiffer equations that are
+numerically more challenging to solve. This is why most (but notably
+not all) stellar evolution codes stop at C core depletion at the
+latest.
+
+Here we will focus on "envelope" issues, using a simple model of a
+15M_{\odot} star (see [[./15Msun_early_evol/][the work directory]]). In the interest of speed, we will
+use a 22-isotope network and we have already evolved it to core carbon
+depletion (X_{C} \le 2.5\times10^{-3} corresponding to model number 1125).
+
+:Hint:
+You can inspect the [[./15Msun_early_evol/15M_early_evol.mod][model output]] and [[./15Msun_early_evol/LOGS/15M_early_evol.data][profile]] to study your initial
+conditions.
+:end:
+
+Ideally, we'd want to be able to run this to the onset of core
+collapse, but again for summer school purposes, let's just try to get
+to a central oxygen abundance of X_{O} \le 0.1 and call it a success.
+However, to prevent a ZAMS model to terminate immediately, we set the
+(for this particular model) equivalent upper-limit
+$\log_{10}(T/[K])<9.35$ reached 3 timesteps earlier.
+
+
+** Common situation: Running into a problem
+
+Download the =15Msun_problem= folder. The main =inlist= points to
+=inlist_problem= which is at this point is the same as
+=inlist_early_evol= used to compute the previous evolution.
+
+*N.B.:* It's not exactly a bare-bone model, but definitely not
+science-ready!
+
+After initializing MESA and running =./clean && ./mk=
+start from the provided photo (=photos/x125=) with:
+
+#+begin_src bash
+./re x125
+#+end_src
+
+*N.B.:* We have modified the =./rn= bash script to add an extra check in
+case you really want to start from the beginning.
+
+Watch your model evolve. The terminal output is often the quickest way
+to get an idea of what's going on:
+
+At model 1156 you should hit the =min_timestep_limit= condition, which is set to
+0.1 seconds.
+
+*N.B.:* This is not a sufficiently low threshold for production
+models past O core burning, but it's sufficiently low that one would
+not want to continue the evolution in testing, and in this particular
+case, we have tested that blindly lowering the =min_timestep_limit= will
+only delay the issue, not fundamentally change it.
+
+At this point, for an individual model I may fiddle a bit to find a
+work-around (e.g., fiddling with increasing resolution, decreasing
+=min_timestep_limit=), but that can often become a messy random walk in
+the forest of MESA parameters. Sometimes, a problem cannot be worked
+around and needs to be fixed.
+
+** But what is the problem?
+
+To identify the problem, the first thing is to plot profiles. It is
+often helpful to look at
+
+
+** Wrap up
+
+Hopefully, what you have learned here can be helpful if further
+problem arise, and more generally. As you've seen, this is a significant
+amount of work, and often you can use intuition to take short cuts.
+
+=pgplots= may not be that pretty to look at, but they can be very
+helpful to spot problems and depending on your science case you may be
+able to afford a band-aid solution. But sometimes you need to know
+what is the root cause, which equation is yielding the largest
+residual and driving the decrease in timesteps.
+
+For the problem of velocities we worked on, typical approaches are to
+"put a lid" on the star, increasing the surface pressure (e.g. with
+=P_extra_factor=), increasing wind mass-loss rates to "get rid" of the
+envelope, etc. It's up to you to experiment!
