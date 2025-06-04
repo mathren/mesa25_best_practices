@@ -7,3 +7,4 @@ photos/*
 *.a
 star
 *.o
+inlist ! ignore changes in main inlist
