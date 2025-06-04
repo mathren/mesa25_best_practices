@@ -4,7 +4,7 @@ rm -f restart_photo
 
 echo "Are you sure you want to start from ZAMS? this will be longer than expected!"
 echo "You may want to consider running"
-echo "       ./re x150"
+echo "       ./re x125"
 echo " for the MESA summer school exercise"
 
 read -p "Do you want to proceed from ZAMS anyways? (y/n): " answer

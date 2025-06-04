@@ -76,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-max_model_number                                =  1125
+! max_model_number                                =  1125
 ! xa_central_lower_limit_species(1)               = 'o16'
 ! xa_central_lower_limit(1)                       = 0.1 ! Let's call "Oxygen depletion" a success for summer school purposes
 log_center_temp_upper_limit = 9.35d0
