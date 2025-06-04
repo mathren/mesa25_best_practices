@@ -53,8 +53,11 @@ start from the provided photo (=photos/x125=) with:
 *N.B.:* We have modified the =./rn= bash script to add an extra check in
 case you really want to start from the beginning.
 
-Watch your model evolve. The terminal output is often the quickest way
+Watch your model evolve. You can *pause the run with =Ctrl-Z= and resume
+it typing* =f g=. The terminal output is often the quickest way
 to get an idea of what's going on:
+
+
 
 At model =1153= you should hit the =min_timestep_limit= condition, which is set to
 0.1 seconds.
@@ -83,8 +86,6 @@ your science: sometimes it's things you don't care about that grind
 your model(s) or grids to a halt! Stellar evolution is a highly
 non-linear problem. Sometimes changing axes to change perspective can
 also help.
-
-- [ ] more onpgplots?
 
 But what if it's a new problem you don't have intuition for, or if you
 just can't pin-point it just plotting things? Then we need to look
@@ -124,6 +125,7 @@ iterations.
 
 Restart now again from the photo =x125=: you should get more output.
 
+
 *N.B.:* You may need to remove the =LOGS/history.data= file to be able to
 run, or (*this is a destructive action that may cause data loss*) you
 can simply remove the entire folder if this happens. MESA will
@@ -152,3 +154,8 @@ envelope, etc. It's up to you to experiment!
 An inlist with the full solution is provided as a hidden file
 =.inlist_solution=. You can rename it and/or point your main =inlist= to
 it (MESA will read a hidden file!)
+
+** TODO
+
+- [ ] more onpgplots?
+- [ ] describe =report_solver_progress= output (see )
