@@ -24,7 +24,7 @@ number =1261=).
 
 :Hint:
 You can inspect the [[./15Msun_early_evol/15M_early_evol.mod][model output]] and [[./15Msun_early_evol/15M_early_evol.data][profile]], or just look at the
-[[./15Msun_early_evol/png/15Msun_early_evol.mp4][pgstar movie]] to see your initial conditions.
+[[./15Msun_problem/early_evolution.mp4][pgstar movie]] to see your initial conditions.
 :end:
 
 Ideally, we'd want to be able to run this to the onset of core
@@ -312,6 +312,15 @@ helpful to spot problems and depending on your science case you may be
 able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
+
+*** Useful references
+Relevant MESA documentation pages:
+- [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
+- [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
+Contribute back ready-to-use routines:
+- [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
+Tooling:
+- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
 
 *** Full solution
 
