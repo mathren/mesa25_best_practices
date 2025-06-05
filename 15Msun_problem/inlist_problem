@@ -1,17 +1,13 @@
 &star_job
 
-! start from a pre-computed model: see ../15Msun_early_evol/inlist_early_evol for the setup used
-load_saved_model = .true.
-load_model_filename = '../15Msun_early_evol/15M_early_evol.mod'
+create_pre_main_sequence_model                  = .false.
 
-! create_pre_main_sequence_model                  = .false.
-
-! save_model_when_terminate                       = .true.
-! save_model_filename                             = '15M_early_evol.mod'
-! write_profile_when_terminate                    = .true.
-! filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
-! show_timestep_limit_counts_when_terminate       = .true.
-! show_retry_counts_when_terminate                = .true.
+save_model_when_terminate                       = .true.
+save_model_filename                             = '15M_early_evol.mod'
+write_profile_when_terminate                    = .true.
+filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
+show_timestep_limit_counts_when_terminate       = .true.
+show_retry_counts_when_terminate                = .true.
 
 ! nuclear physics
 !! reaction network
@@ -46,13 +42,12 @@ T9_weaklib_full_on                              = 0.00011d0
 change_v_flag                                   = .true.
 new_v_flag                                      = .true.
 
-! don't re-initialize these
-! ! initialize
-! set_initial_age                                 = .true.
-! initial_age                                     = 0
+! initialize
+set_initial_age                                 = .true.
+initial_age                                     = 0
 
-! set_initial_model_number                        = .true.
-! initial_model_number                            = 0
+set_initial_model_number                        = .true.
+initial_model_number                            = 0
 
 ! plots
 pgstar_flag                                     = .true.
@@ -81,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! max_model_number                                =  1000 !<---changed w.r.t. inlist_early_evol
+! log_center_temp_upper_limit = 9.35d0
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -130,9 +125,9 @@ min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
-use_drag_energy                                 = .false.
-drag_coefficient                                = 0.9d0
-min_q_for_drag                                  = 0.8d0
+! use_drag_energy                                 = .false.
+! drag_coefficient                                = 0.9d0
+! min_q_for_drag                                  = 0.8d0
 
 ! nuclear physics
 ! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
@@ -154,7 +149,7 @@ max_abs_rel_run_E_err                           = 1d-2 ! maximum energy error be
 
 ! timesteps
 time_delta_coeff                                = 1d0
-min_timestep_limit                              = 1e-7 !sec !<---changed w.r.t. inlist_early_evol
+min_timestep_limit                              = 1e0 !sec ! 1e-20 !to be able to reach CC
 ! varcontrol_target                             = 1d-3 !1d-4
 ! max_timestep_factor                           = 1.05d0
 retry_hold                                      = 2
@@ -178,9 +173,14 @@ use_gold2_tolerances                            = .true.
 gold2_tol_max_residual2                         = 5d-7
 gold2_tol_max_residual3                         = 5d-4
 
+! limit number of retries for speed up
+retry_limit                                     = 10
+
+
 ! output
 profile_interval                                = 1000
-max_num_profile_models                          = 52
+max_num_profile_models                          = 5
+photo_interval                                  = 25
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1

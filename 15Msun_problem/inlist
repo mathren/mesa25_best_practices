@@ -1,7 +1,8 @@
-&Star_job
+&star_job
 
 read_extra_star_job_inlist(1) = .true.
-extra_star_job_inlist_name(1) = 'inlist_project'
+! extra_star_job_inlist_name(1) = 'inlist_early_evol'
+extra_star_job_inlist_name(1) = 'inlist_problem'
 
 / ! end of star_job namelist
 
@@ -9,7 +10,8 @@ extra_star_job_inlist_name(1) = 'inlist_project'
 &eos
 
 read_extra_eos_inlist(1) = .true.
-extra_eos_inlist_name(1) = 'inlist_project'
+! extra_eos_inlist_name(1) = 'inlist_early_evol'
+extra_eos_inlist_name(1) = 'inlist_problem'
 
 / ! end of eos namelist
 
@@ -17,7 +19,8 @@ extra_eos_inlist_name(1) = 'inlist_project'
 &kap
 
 read_extra_kap_inlist(1) = .true.
-extra_kap_inlist_name(1) = 'inlist_project'
+! extra_kap_inlist_name(1) = 'inlist_early_evol'
+extra_kap_inlist_name(1) = 'inlist_problem'
 
 / ! end of kap namelist
 
@@ -25,7 +28,8 @@ extra_kap_inlist_name(1) = 'inlist_project'
 &controls
 
 read_extra_controls_inlist(1) = .true.
-extra_controls_inlist_name(1) = 'inlist_project'
+! extra_controls_inlist_name(1) = 'inlist_early_evol'
+extra_controls_inlist_name(1) = 'inlist_problem'
 
 / ! end of controls namelist
 

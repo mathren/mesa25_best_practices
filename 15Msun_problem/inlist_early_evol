@@ -2,9 +2,9 @@
 
 create_pre_main_sequence_model                  = .false.
 
-save_model_when_terminate                       = .false.
+save_model_when_terminate                       = .true.
 save_model_filename                             = '15M_early_evol.mod'
-write_profile_when_terminate                    = .false.
+write_profile_when_terminate                    = .true.
 filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
 show_timestep_limit_counts_when_terminate       = .true.
 show_retry_counts_when_terminate                = .true.
@@ -76,10 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! max_model_number                                =  1125
-! xa_central_lower_limit_species(1)               = 'o16'
-! xa_central_lower_limit(1)                       = 0.1 ! Let's call "Oxygen depletion" a success for summer school purposes
-log_center_temp_upper_limit = 9.35d0
+log_center_temp_upper_limit                     = 9.35d0 ! to save starting point
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -124,7 +121,7 @@ semiconvection_option                           = 'Langer_85 mixing; gradT = gra
 thermohaline_option                             = 'Kippenhahn'
 ! arbitrary mixing to smooth things
 set_min_D_mix                                   = .true.
-min_D_mix                                       =1d-2
+min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
