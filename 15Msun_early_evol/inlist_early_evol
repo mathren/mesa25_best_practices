@@ -1,0 +1,188 @@
+&star_job
+
+create_pre_main_sequence_model                  = .false.
+
+save_model_when_terminate                       = .false.
+save_model_filename                             = '15M_early_evol.mod'
+write_profile_when_terminate                    = .false.
+filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
+show_timestep_limit_counts_when_terminate       = .true.
+show_retry_counts_when_terminate                = .true.
+
+! nuclear physics
+!! reaction network
+change_net                                      = .true.
+new_net_name                                    = "approx21_cr56.net" !  ! 'mesa_206.net'
+
+!! rates
+num_special_rate_factors                        = 2
+reaction_for_special_factor(1)                  = 'r_c12_ag_o16'
+special_rate_factor(1)                          = 1
+filename_of_special_rate(1)                     = 'c12ag_deboer_sigma_0p0_2000_Tgrid.dat'
+
+reaction_for_special_factor(2)                  = 'r_he4_he4_he4_to_c12'
+special_rate_factor(2)                          = 1
+filename_of_special_rate(2)                     = 'r_he4_he4_he4_to_c12_cf88.txt'
+
+! old Kunz et al. 2002 rate
+! num_special_rate_factors                      = 2
+! reaction_for_special_factor(1)                = 'r_c12_ag_o16'
+! special_rate_factor(1)                        = 1
+! filename_of_special_rate(1)                   = 'r_c12_ag_o16_kunz.txt'
+
+! reaction_for_special_factor(2)                = 'r_he4_he4_he4_to_c12'
+! special_rate_factor(2)                        = 1
+! filename_of_special_rate(2)                   = 'r_he4_he4_he4_to_c12_cf88.txt'
+
+!! we want to use weaklib all the time, so we toggle at lowT.
+T9_weaklib_full_off                             = 0.0001d0
+T9_weaklib_full_on                              = 0.00011d0
+
+! Lagrangian implicit hydro
+change_v_flag                                   = .true.
+new_v_flag                                      = .true.
+
+! initialize
+set_initial_age                                 = .true.
+initial_age                                     = 0
+
+set_initial_model_number                        = .true.
+initial_model_number                            = 0
+
+! plots
+pgstar_flag                                     = .true.
+save_pgstar_files_when_terminate                = .true.
+
+/ ! end of star_job namelist
+
+
+&eos
+
+/ ! end of eos namelist
+
+
+&kap
+
+use_Type2_opacities                             = .true.
+Zbase                                           = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+
+! starting specifications
+initial_mass                                    = 15 ! in Msun units
+initial_z                                       = 0.02
+
+! when to stop
+! max_model_number                                =  1125
+! xa_central_lower_limit_species(1)               = 'o16'
+! xa_central_lower_limit(1)                       = 0.1 ! Let's call "Oxygen depletion" a success for summer school purposes
+log_center_temp_upper_limit = 9.35d0
+
+! wind
+hot_wind_scheme                                 = 'Dutch'
+cool_wind_RGB_scheme                            = 'Dutch'
+cool_wind_AGB_scheme                            = 'Dutch'
+Dutch_scaling_factor                            = 0.5
+max_T_center_for_any_mass_loss                  = 1.1d9
+
+! atmosphere
+Pextra_factor                                   = 2 ! <= 1.5 to stay physical
+atm_option                                      = 'T_tau'
+atm_T_tau_relation                              = 'Eddington'
+atm_T_tau_opacity                               = 'fixed' ! next best is 'iterated'
+
+! rotation
+
+! mlt
+MLT_option                                      = 'TDC'
+mixing_length_alpha                             = 1.5d0
+alpha_TDC_DAMPR                                 = 3d0 ! radiative dissipation !0d0 is default for mlt limit of TDC. 3 ~ henyey
+
+! overshooting controls , lowest (#) take priority
+overshoot_scheme(1)                             = 'exponential'
+overshoot_zone_type(1)                          = 'any'
+overshoot_zone_loc(1)                           = 'core'
+overshoot_bdy_loc(1)                            = 'any'
+overshoot_f(1)                                  = 4.15d-2
+overshoot_f0(1)                                 = 0.008d0
+
+overshoot_scheme(2)                             = 'exponential'
+overshoot_zone_type(2)                          = 'any'
+overshoot_zone_loc(2)                           = 'any'
+overshoot_bdy_loc(2)                            = 'any'
+overshoot_f(2)                                  = 0.005d0
+overshoot_f0(2)                                 = 0.001d0
+
+! mixing
+use_ledoux_criterion                            = .true.
+alpha_semiconvection                            = 1.0d0
+thermohaline_coeff                              = 1000d0
+semiconvection_option                           = 'Langer_85 mixing; gradT = gradr'
+thermohaline_option                             = 'Kippenhahn'
+! arbitrary mixing to smooth things
+set_min_D_mix                                   = .true.
+min_D_mix                                       =1d-2
+
+
+! hydro tweaks
+
+! nuclear physics
+! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
+fe56ec_fake_factor                              = 1d-4
+min_T_for_fe56ec_fake_factor                    = 3d9
+
+dX_nuc_drop_limit                               = 1d-2 ! 1d-3 for production
+dX_nuc_drop_limit_at_high_T                     = 2d-2 ! 1d-2 for production ! for center logT > 9.45
+dX_nuc_drop_min_X_limit                         = 1d-4 !1d-3 ! try decreasing to 1d-4 or 1d-5 in a production run
+dX_nuc_drop_max_A_limit                         = 70   ! try increasing beyond 60 in a big network run
+dX_nuc_drop_hard_limit                          = 1d99
+
+delta_Ye_highT_limit                            = 1d-3
+
+! Ignore cumulative energy residuals for the entire run to avoid premature exits
+hard_limit_for_rel_error_in_energy_conservation = -1d0
+! MESA will still warn if it grows above ~1%
+max_abs_rel_run_E_err                           = 1d-2 ! maximum energy error before model is terminated.
+
+! timesteps
+time_delta_coeff                                = 1d0
+min_timestep_limit                              = 1e0 !sec ! 1e-20 !to be able to reach CC
+! varcontrol_target                             = 1d-3 !1d-4
+! max_timestep_factor                           = 1.05d0
+retry_hold                                      = 2
+
+! mesh
+
+! max_dq                                        = 5d-3!1d-3 ! lower for production runs
+! max_allowed_nz                                = 50000
+mesh_delta_coeff                                = 1.5d0 ! 1.0 for a production.
+mesh_delta_coeff_for_highT                      = 1.5d0 !1.5 ! try 1.0 or below in production run
+logT_max_for_standard_mesh_delta_coeff          = 9.0
+logT_min_for_highT_mesh_delta_coeff             = 9.5
+
+! solver
+! options for energy conservation (see MESA V, Section 3)
+energy_eqn_option                               = 'dedt'
+use_gold_tolerances                             = .true.
+
+energy_eqn_option                               = 'dedt'
+use_gold2_tolerances                            = .true.
+gold2_tol_max_residual2                         = 5d-7
+gold2_tol_max_residual3                         = 5d-4
+
+! limit number of retries for speed up
+retry_limit                                     = 10
+
+
+! output
+profile_interval                                = 1000
+max_num_profile_models                          = 5
+photo_interval                                  = 25
+history_interval                                = 1
+write_header_frequency                          = 10
+terminal_interval                               = 1
+
+/ ! end of controls namelist
