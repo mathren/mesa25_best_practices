@@ -1,5 +1,3 @@
-#+Title: Best practices - MESA Summer School 2025
-
 * The numerical nightmare that is late massive star evolution
 
 Massive star models become numerically more challenging as they
@@ -171,34 +169,37 @@ understand what this is.
 :Hint:
 This is the =bash= command I used and the result for me:
 #+begin_src bash
-grep -R "equ" $MESA_DIR/star_data/public/*
-star_data/public/star_data_step_input.inc:      ! flags indicating extra variables and equations in addition to the minimal set
-star_data/public/star_data_step_input.inc:      ! index definitions for the equations (= 0 if equation not in use)
-star_data/public/star_data_step_input.inc:         integer :: i_equL ! luminosity
-star_data/public/star_data_step_input.inc:         integer :: i_detrb_dt ! turbulent energy equation. only when RSP2_flag is true.
-star_data/public/star_data_step_input.inc:         integer :: i_equ_Hp ! face pressure scale height equation. only when RSP2_flag is true.
-star_data/public/star_data_step_input.inc:      ! names of variables and equations
-star_data/public/star_data_step_input.inc:         character (len=name_len), dimension(:), pointer :: nameofvar, nameofequ ! (nvar)
-star_data/public/star_data_step_input.inc:         ! 900 million different sequences. the state of the generator (for restarts)
-star_data/public/star_data_step_input.inc:         integer :: i_equ_w_div_wc ! equation for w_div_wc
-star_data/public/star_data_step_input.inc:         integer :: i_dj_rot_dt ! equation for specific angular momentum
-star_data/public/star_data_def.inc:      ! 900 million different sequences. the state of the generator (for restarts)
-star_data/public/star_data_def.inc:               id, nz, xm, r, rho, aw, ft, fp, r_polar, r_equatorial, report_ierr, ierr)
-star_data/public/star_data_def.inc:            real(dp), intent(inout) :: r_polar(:), r_equatorial(:)
-star_data/public/star_data_def.f90:         ! gfortran seems to require "save" here.  at least it did once upon a time.
-star_data/public/star_data_step_work.inc:      ! eos partials for use in calculating equation partials for Jacobian matrix
-star_data/public/star_data_step_work.inc:      real(dp), pointer :: w_div_w_crit_roche(:) ! fraction of critical rotation at the equator,
-star_data/public/star_data_step_work.inc:      real(dp), pointer :: r_equatorial(:) ! radius in equatorial direction
-star_data/public/star_data_step_work.inc:      ! extra gravity (can be set by user)  added to -G*m/r^2 in momentum equation
-star_data/public/star_data_step_work.inc:         surf_r_equatorial, surf_csound, surf_rho
-star_data/public/star_data_step_work.inc:            ! equivalently, this is the smallest k st. for all k' > k,
-star_data/public/star_data_step_work.inc:      ! equation residuals, etc
-star_data/public/star_data_step_work.inc:         ! equ(i,k) is residual for equation i of cell k
-star_data/public/star_data_step_work.inc:         real(dp), dimension(:,:), pointer :: equ=>null() ! (nvar,nz);  equ => equ1
-star_data/public/star_data_step_work.inc:         real(dp), dimension(:), allocatable :: equ1 ! (nvar*nz); data for equ
-star_data/public/star_data_step_work.inc:         ! dblk(i,j,k) = dequ(i,k)/dx(j,k)
-star_data/public/star_data_step_work.inc:         ! lblk(i,j,k) = dequ(i,k)/dx(j,k-1)
-star_data/public/star_data_step_work.inc:         ! ublk(i,j,k) = dequ(i,k)/dx(j,k+1)
+  grep -R "equ" $MESA_DIR/star_data/public/*
+#+end_src
+Which produces this output:
+#+begin_src
+  star_data/public/star_data_step_input.inc:      ! flags indicating extra variables and equations in addition to the minimal set
+  star_data/public/star_data_step_input.inc:      ! index definitions for the equations (= 0 if equation not in use)
+  star_data/public/star_data_step_input.inc:         integer :: i_equL ! luminosity
+  star_data/public/star_data_step_input.inc:         integer :: i_detrb_dt ! turbulent energy equation. only when RSP2_flag is true.
+  star_data/public/star_data_step_input.inc:         integer :: i_equ_Hp ! face pressure scale height equation. only when RSP2_flag is true.
+  star_data/public/star_data_step_input.inc:      ! names of variables and equations
+  star_data/public/star_data_step_input.inc:         character (len=name_len), dimension(:), pointer :: nameofvar, nameofequ ! (nvar)
+  star_data/public/star_data_step_input.inc:         ! 900 million different sequences. the state of the generator (for restarts)
+  star_data/public/star_data_step_input.inc:         integer :: i_equ_w_div_wc ! equation for w_div_wc
+  star_data/public/star_data_step_input.inc:         integer :: i_dj_rot_dt ! equation for specific angular momentum
+  star_data/public/star_data_def.inc:      ! 900 million different sequences. the state of the generator (for restarts)
+  star_data/public/star_data_def.inc:               id, nz, xm, r, rho, aw, ft, fp, r_polar, r_equatorial, report_ierr, ierr)
+  star_data/public/star_data_def.inc:            real(dp), intent(inout) :: r_polar(:), r_equatorial(:)
+  star_data/public/star_data_def.f90:         ! gfortran seems to require "save" here.  at least it did once upon a time.
+  star_data/public/star_data_step_work.inc:      ! eos partials for use in calculating equation partials for Jacobian matrix
+  star_data/public/star_data_step_work.inc:      real(dp), pointer :: w_div_w_crit_roche(:) ! fraction of critical rotation at the equator,
+  star_data/public/star_data_step_work.inc:      real(dp), pointer :: r_equatorial(:) ! radius in equatorial direction
+  star_data/public/star_data_step_work.inc:      ! extra gravity (can be set by user)  added to -G*m/r^2 in momentum equation
+  star_data/public/star_data_step_work.inc:         surf_r_equatorial, surf_csound, surf_rho
+  star_data/public/star_data_step_work.inc:            ! equivalently, this is the smallest k st. for all k' > k,
+  star_data/public/star_data_step_work.inc:      ! equation residuals, etc
+  star_data/public/star_data_step_work.inc:         ! equ(i,k) is residual for equation i of cell k
+  star_data/public/star_data_step_work.inc:         real(dp), dimension(:,:), pointer :: equ=>null() ! (nvar,nz);  equ => equ1
+  star_data/public/star_data_step_work.inc:         real(dp), dimension(:), allocatable :: equ1 ! (nvar*nz); data for equ
+  star_data/public/star_data_step_work.inc:         ! dblk(i,j,k) = dequ(i,k)/dx(j,k)
+  star_data/public/star_data_step_work.inc:         ! lblk(i,j,k) = dequ(i,k)/dx(j,k-1)
+  star_data/public/star_data_step_work.inc:         ! ublk(i,j,k) = dequ(i,k)/dx(j,k+1)
 #+end_src
 
 Specifically, the 5^{th} line from the bottom shows that =equ= is an array
@@ -243,54 +244,57 @@ throughout =MESA_DIR= (=-R= option) including only =*.f90= files, with the
 output I get:
 
 #+begin_src bash
-  grep -IR --include="*.f90" "equL" $MESA_DIR
-  $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL, i
-  $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
-  $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
-  $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
-  $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_alt_dlnT_dm_eqn', ierr)
-  $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL
-  $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
-  $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
-  $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
-  $MESA_DIR/star/private/hydro_temperature.f90:         if (is_bad(s% equ(i_equL, k))) then
-  $MESA_DIR/star/private/hydro_temperature.f90:            if (s% report_ierr) write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            s% solver_test_partials_val = s% equ(i_equL,k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_gradT_eqn', ierr)
-  $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL
-  $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
-  $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
-  $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
-  $MESA_DIR/star/private/hydro_temperature.f90:         if (is_bad(s% equ(i_equL, k))) then
-  $MESA_DIR/star/private/hydro_temperature.f90:            if (s% report_ierr) write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            call mesa_error(__FILE__,__LINE__,'i_equL')
-  $MESA_DIR/star/private/hydro_temperature.f90:            s% solver_test_partials_val = s% equ(i_equL,k)
-  $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_dlnT_dm_eqn', ierr)
-  $MESA_DIR/star/private/hydro_eqns.f90:            i_dv_dt, i_du_dt, i_du_dk, i_equL, i_dlnd_dt, i_dlnE_dt, i_dlnR_dt, &
-  $MESA_DIR/star/private/hydro_eqns.f90:            do_alpha_RTI, do_w_div_wc, do_j_rot, do_dlnE_dt, do_equL, do_detrb_dt
-  $MESA_DIR/star/private/hydro_eqns.f90:         do_equL = (i_equL > 0 .and. i_equL <= nvar)
-  $MESA_DIR/star/private/hydro_eqns.f90:            if (do_equL) then
-  $MESA_DIR/star/private/hydro_eqns.f90:            call PT_eqns_surf(s, nvar, do_du_dt, do_dv_dt, do_equL, ierr)
-  $MESA_DIR/star/private/hydro_eqns.f90:            i_equL = s% i_equL
-  $MESA_DIR/star/private/hydro_eqns.f90:      subroutine PT_eqns_surf(s, nvar, do_du_dt, do_dv_dt, do_equL, ierr)
-  $MESA_DIR/star/private/hydro_eqns.f90:         logical, intent(in) :: do_du_dt, do_dv_dt, do_equL
-  $MESA_DIR/star/private/hydro_eqns.f90:         if ((.not. do_equL) .or. &
-  $MESA_DIR/star/private/hydro_eqns.f90:            s% equ(s% i_equL, 1) = residual
-  $MESA_DIR/star/private/hydro_eqns.f90:               s, 1, nvar, s% i_equL, resid_ad, 'set_Tsurf_BC', ierr)
-  $MESA_DIR/star/private/alloc.f90:            s% i_equL = s% i_lum
-  $MESA_DIR/star/private/alloc.f90:            s% i_equL = s% i_lnd
-  $MESA_DIR/star/private/alloc.f90:         if (s% i_equL /= 0) s% nameofequ(s% i_equL) = 'equL'
-  $MESA_DIR/star/private/photo_in.f90:            s% i_dv_dt, s% i_equL, s% i_dlnd_dt, s% i_dlnE_dt, &
-  $MESA_DIR/star/private/init.f90:         s% i_equL = 0
-  $MESA_DIR/star/private/ctrls_io.f90:    include_rotation_in_total_energy, convergence_ignore_equL_residuals, convergence_ignore_alpha_RTI_residuals, &
-  $MESA_DIR/star/private/ctrls_io.f90: s% convergence_ignore_equL_residuals = convergence_ignore_equL_residuals
-  $MESA_DIR/star/private/ctrls_io.f90: convergence_ignore_equL_residuals = s% convergence_ignore_equL_residuals
-  $MESA_DIR/star/private/hydro_rsp2.f90:         s% equ(s% i_equL, k) = residual
-  $MESA_DIR/star/private/hydro_rsp2.f90:         call save_eqn_residual_info(s, k, nvar, s% i_equL, resid, 'do1_rsp2_L_eqn', ierr)
-  $MESA_DIR/star/private/photo_out.f90:            s% i_dv_dt, s% i_equL, s% i_dlnd_dt, s% i_dlnE_dt, &
-  $MESA_DIR/star/private/solver_support.f90:         if (s% convergence_ignore_equL_residuals) skip_eqn1 = s% i_equL
+      grep -IR --include="*.f90" "equL" $MESA_DIR
+#+end_src
+Which produces this output:
+#+begin_src
+      $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL, i
+      $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
+      $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
+      $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
+      $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_alt_dlnT_dm_eqn', ierr)
+      $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL
+      $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
+      $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
+      $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
+      $MESA_DIR/star/private/hydro_temperature.f90:         if (is_bad(s% equ(i_equL, k))) then
+      $MESA_DIR/star/private/hydro_temperature.f90:            if (s% report_ierr) write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            s% solver_test_partials_val = s% equ(i_equL,k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_gradT_eqn', ierr)
+      $MESA_DIR/star/private/hydro_temperature.f90:         integer :: i_equL
+      $MESA_DIR/star/private/hydro_temperature.f90:         i_equL = s% i_equL
+      $MESA_DIR/star/private/hydro_temperature.f90:         if (i_equL == 0) return
+      $MESA_DIR/star/private/hydro_temperature.f90:         s% equ(i_equL, k) = resid%val
+      $MESA_DIR/star/private/hydro_temperature.f90:         if (is_bad(s% equ(i_equL, k))) then
+      $MESA_DIR/star/private/hydro_temperature.f90:            if (s% report_ierr) write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            write(*,2) 'equ(i_equL, k)', k, s% equ(i_equL, k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            call mesa_error(__FILE__,__LINE__,'i_equL')
+      $MESA_DIR/star/private/hydro_temperature.f90:            s% solver_test_partials_val = s% equ(i_equL,k)
+      $MESA_DIR/star/private/hydro_temperature.f90:            s, k, nvar, i_equL, resid, 'do1_dlnT_dm_eqn', ierr)
+      $MESA_DIR/star/private/hydro_eqns.f90:            i_dv_dt, i_du_dt, i_du_dk, i_equL, i_dlnd_dt, i_dlnE_dt, i_dlnR_dt, &
+      $MESA_DIR/star/private/hydro_eqns.f90:            do_alpha_RTI, do_w_div_wc, do_j_rot, do_dlnE_dt, do_equL, do_detrb_dt
+      $MESA_DIR/star/private/hydro_eqns.f90:         do_equL = (i_equL > 0 .and. i_equL <= nvar)
+      $MESA_DIR/star/private/hydro_eqns.f90:            if (do_equL) then
+      $MESA_DIR/star/private/hydro_eqns.f90:            call PT_eqns_surf(s, nvar, do_du_dt, do_dv_dt, do_equL, ierr)
+      $MESA_DIR/star/private/hydro_eqns.f90:            i_equL = s% i_equL
+      $MESA_DIR/star/private/hydro_eqns.f90:      subroutine PT_eqns_surf(s, nvar, do_du_dt, do_dv_dt, do_equL, ierr)
+      $MESA_DIR/star/private/hydro_eqns.f90:         logical, intent(in) :: do_du_dt, do_dv_dt, do_equL
+      $MESA_DIR/star/private/hydro_eqns.f90:         if ((.not. do_equL) .or. &
+      $MESA_DIR/star/private/hydro_eqns.f90:            s% equ(s% i_equL, 1) = residual
+      $MESA_DIR/star/private/hydro_eqns.f90:               s, 1, nvar, s% i_equL, resid_ad, 'set_Tsurf_BC', ierr)
+      $MESA_DIR/star/private/alloc.f90:            s% i_equL = s% i_lum
+      $MESA_DIR/star/private/alloc.f90:            s% i_equL = s% i_lnd
+      $MESA_DIR/star/private/alloc.f90:         if (s% i_equL /= 0) s% nameofequ(s% i_equL) = 'equL'
+      $MESA_DIR/star/private/photo_in.f90:            s% i_dv_dt, s% i_equL, s% i_dlnd_dt, s% i_dlnE_dt, &
+      $MESA_DIR/star/private/init.f90:         s% i_equL = 0
+      $MESA_DIR/star/private/ctrls_io.f90:    include_rotation_in_total_energy, convergence_ignore_equL_residuals, convergence_ignore_alpha_RTI_residuals, &
+      $MESA_DIR/star/private/ctrls_io.f90: s% convergence_ignore_equL_residuals = convergence_ignore_equL_residuals
+      $MESA_DIR/star/private/ctrls_io.f90: convergence_ignore_equL_residuals = s% convergence_ignore_equL_residuals
+      $MESA_DIR/star/private/hydro_rsp2.f90:         s% equ(s% i_equL, k) = residual
+      $MESA_DIR/star/private/hydro_rsp2.f90:         call save_eqn_residual_info(s, k, nvar, s% i_equL, resid, 'do1_rsp2_L_eqn', ierr)
+      $MESA_DIR/star/private/photo_out.f90:            s% i_dv_dt, s% i_equL, s% i_dlnd_dt, s% i_dlnE_dt, &
+      $MESA_DIR/star/private/solver_support.f90:         if (s% convergence_ignore_equL_residuals) skip_eqn1 = s% i_equL
 #+end_src
 
 It looks like it appears in the file
@@ -318,7 +322,8 @@ snippet:
 #+end_src
 
 which suggests that =equL= is the residual of the temperature gradient
-equation, *not* a (non-existing) luminosity equation.
+equation, *not* a (non-existing) luminosity equation. See also
+[[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]] Sec. 6.2 (specifically Eq. 8).
 
 Why this (terrible) name then? In a star, the temperature gradient
 will adjust to carry the luminosity (leading to convection if the
@@ -330,7 +335,6 @@ luminosity, but the equation it is the residual of is the temperature
 gradient equation
 
 **** *Optional*: confirming the bad derivative
-
 To confirm that it is the derivative of the residual =equL= w.r.t.
 the density =lnd= is behaving bad, let's get some info about those
 by uncommenting and setting in our inlist the following:
@@ -362,7 +366,7 @@ output:
 which confirms that the suspected partial derivative is the culprit of
 the problem!
 
-*** This is the problem!
+*** So this is the (first) problem!
 
 The derivative of the residual of the equation for the temperature
 gradient, a.k.a. =equL= w.r.t. the variable =lnd=, the density is causing
@@ -433,9 +437,11 @@ to get the output above assuming =MESA_DIR= is initialized. It will go
 to the =test_suite= directory then (after =&&=), use =grep= to look for the
 string in between quotes recursively (=-R=), and the lastly go back to
 the previous folder where you were (=cd -=):
-
 #+begin_src bash
   cd $MESA_DIR/star/test_suite && grep -R "convergence_ignore_equL_residuals = .true." ./* && cd -
+#+end_src
+Which gives me:
+#+begin_src
   ./12M_pre_ms_to_core_collapse/inlist_common:      convergence_ignore_equL_residuals = .true.
   ./1.5M_with_diffusion/inlist_1.5M_with_diffusion:   convergence_ignore_equL_residuals = .true.
   ./1M_pre_ms_to_wd/inlist_to_end_core_he_burn:      convergence_ignore_equL_residuals = .true.
@@ -498,22 +504,6 @@ proceed past model =1266=: you have successfully bypassed the problem!
 This model should continue until a second crash occurs during Si core
 burning. *Congratulations!*
 
-# **** *OPTIONAL*: What about a more physical solution
-
-# MESA already offers options to use \nabla not from MLT but the actual
-# temperature gradient without assumption of hydrostatic equilibrium.
-# These are available in =controls=: you can try using that without
-# =convergence_ignore_equL_residuals=!
-
-# :Hint:
-# As usual, search =$MESA_DIR/star/defaults/controls.default= to
-# find options available. In this case
-# =use_gradT_actual_vs_gradT_MLT_for_T_gradient_eqn= seems relevant! You can
-# also find this looking at the =if= statements in
-# =$MESA_DIR/star/private/hydro_temperature.f90= which we inspected
-# before.
-# :end:
-
 ** After you found the solution
 
 If your solution implies changing at some point something in the setup
@@ -539,9 +529,15 @@ evolution the change should happen (e.g., based on central abundances
 or temperature) and change the values of entries in =controls= through
 the =s%= pointer. For example, to change =max_model_number= (a =controls=
 setting), you can overwrite your =inlist= with:
+
 #+begin_src fortran 90
    s% max_model_number = 1000
 #+end_src
+
+There are some examples of doing these in the =test_suite= and from
+reproducible publications on [[https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest][zenodo]]! See for example
+=$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90= for a complex
+example.
 
 *N.B.:* you can also use =b %= in the MESA =binary= module to change things
  of =binary_controls=.
