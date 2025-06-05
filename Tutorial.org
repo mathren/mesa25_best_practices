@@ -375,6 +375,10 @@ can do is to ignore the residuals of those equation.
 There is a =controls= flag to do this in MESA: this suggests this is a
 common enough problem!
 
+*Task*: Find the flag that may help us, add it to =inlist_problem= (and
+maybe remove the debug options we previously activated) and restart
+the run.
+
 :Hint:
 Look in =$MESA_DIR/star/defaults/controls.defaults= or in the online
 documentation to see if you find a suitable flag.
@@ -456,9 +460,24 @@ found the definition of =equL=, we can see a useful comment:
 #+end_src
 
 So according to this, the equation we are trying to solve assumes
-hydrostatic equilibrium.
+hydrostatic equilibrium *because* it implicitly rely on mixing length
+theory (MLT).
 
-*** What about a physical solution?
+At the same time, most test cases where we find
+=convergence_ignore_equL_residuals = .true.= seem to imply some
+dynamical phase of evolution: massive stars going to core collapse,
+flashes (i.e., ignition in degenerate environment), etc.: if your
+model is not perfectly in hydrostatic equilibrium, there is no reason
+to expect that this equation can be solved perfectly, because one of
+its implicit assumptions is not verified.
+
+This is what allows this "dirty trick" without having to throw away
+all the possible science! If everything went well, the run should now
+proceed past model =1266= and continue: you have successfully bypassed
+the problem!
+
+This model should continue until a second crash occurs during Si core
+burning.
 
 
 ** After you found the solution
