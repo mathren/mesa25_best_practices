@@ -2,7 +2,7 @@
 
 pgstar_interval                           = 1
 ! pgplot on screen
-Grid2_win_flag                            = .false.
+Grid2_win_flag                            = .true.
 Profile_Panels1_win_flag                  = .false.
 Profile_Panels3_win_flag                  = .false.
 Profile_Panels5_win_flag                  = .false.
