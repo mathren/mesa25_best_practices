@@ -230,22 +230,31 @@ equation anymore.
 In practice however, this particular trick is sometimes used in
 publications.
 
+With this "dirty trick", the run should now proceed beyond oxygen core
+depletion (but it will crash sometimes during Silicon core burning,
+where anyways the small nuclear network we are using is insufficient
+to capture the details of the nuclear energy generation and chemical
+evolution).
+
 
 ** After you found the solution
 
 If your solution implies changing at some point something in the setup
-you should either:
-1. re-run from the beginning (hoping that the introduced change does
+(e.g., any inlist entry changing the physics or numerics) you should
+either:
+1. re-run from the beginning, to verify that the introduced change does
    not make the model crash earlier or change any interpretation of the
-   results)
+   results earlier in the evolution (if not, you may want to run from
+   ZAMS with the fix you just found)
 2. if that is not possible and you're willing to change something
    "on-the-fly", try to implement this as a change from
    =run_star_extras.f90=.
 
 While option 1. is desirable, it is not always possible, plus,
 sometimes you may be willing to turn off some physics that acts on
-timescales long compared to the remaining lifetime, or relax some
-numerical criteria when things get too hard.
+timescales long compared to the remaining lifetime (e.g., thermohaline
+mixing past C depletion), or relax some numerical criteria when things
+get too hard.
 
 Option 2. can be done for example using the =extras_start_step= function
 in =run_star_extras.f90=: add an if statement to catch "when" in the
@@ -265,14 +274,26 @@ for your models.
 
 ** Wrap up
 
+The main point of this exercise was to teach how to access and read
+debugging output at a specific iteration of the solver during a MESA
+run. This can reveal which equation and which variables are causing
+troubles.
+
+Very often, at this point, one needs to consider what is the root of
+the issue to fix it. Some issues are common, known, and still awaiting
+a general fix, so we sometimes chose that it's ok to ignore them,
+which is what we have done here - while not recommended in general,
+this is sometimes acceptable, especially during development.
+
 Hopefully, what you have learned here can be helpful if further
 problem arise, and more generally. As you've seen, this is a significant
-amount of work, and often you can use intuition to take short cuts.
+amount of work, and often you can use intuition to take short cuts
+through this process.
 
-To identify the problem, the first thing is to make plots. It is quick
-and often useful to look at =pgplots=. Very often, with a bit of physical
-intuition and experience one can identify the problem just looking at
-the model.
+Before diving into debugging options, to identify the problem, the
+first thing is to make plots. It is quick and often useful to look at
+=pgplots=. Very often, with a bit of physical intuition and experience
+one can identify the problem just looking at the model.
 
 *N.B.:* At this stage, you may want to look at variables you don't
 necessarily focus on for your science: sometimes it's things you don't
@@ -280,17 +301,11 @@ care about that grind your model(s) to a halt! Stellar evolution is a
 highly non-linear problem. Sometimes changing axes (quantities and
 scale) to change perspective also helps.
 
-
 =pgplots= may not be that pretty to look at, but they can be very
 helpful to spot problems and depending on your science case you may be
 able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
-
-For the problem of velocities we worked on, typical approaches are to
-"put a lid" on the star, increasing the surface pressure (e.g. with
-=P_extra_factor=), increasing wind mass-loss rates to "get rid" of the
-envelope, etc. It's up to you to experiment!
 
 *** Full solution
 
