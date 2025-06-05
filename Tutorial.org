@@ -234,7 +234,10 @@ With this "dirty trick", the run should now proceed beyond oxygen core
 depletion (but it will crash sometimes during Silicon core burning,
 where anyways the small nuclear network we are using is insufficient
 to capture the details of the nuclear energy generation and chemical
-evolution).
+evolution). Effectively, if you see it proceeding past the model
+number of the previous crash, you can consider this successful!
+
+*** What about a physical solution?
 
 
 ** After you found the solution
@@ -315,6 +318,7 @@ it (MESA will read a hidden file!)
 
 ** TODO
 
-- [ ] more onpgplots?
+- [ ] more on pgplots?
 - [ ] describe =report_solver_progress= output (see )
 - [ ] expand on viability of ignoring residuals
+- [ ] find physically satisfying solution
