@@ -11,11 +11,7 @@ The instructions for the lab are at [[./Instructions.org]].
 *** Best Practices
 **** Debugging
 
-Loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html][this documentation]]
-
-**** Developing
-
-- [[https://github.com/mathren/compare_workdir_MESA][compare inlist ignoring order, comments, nesting, and defaults]]
+Loosely based on [[https://docs.mesastar.org/en/latest/developing/debugging.html][this documentation]].
 
 **** Open science & reproducibility
 Maybe make checklist to consult
@@ -26,12 +22,20 @@ Maybe make checklist to consult
   - data: profiles and history
   - postprocessing scripts
   - README mapping figure/result \leftrightarrow scripts \leftrightarrow data \leftrightarrow code
-- give proper credits in your citation
+- [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html#in-the-article][give proper credits in your citation]]
   - input physics
   - algorithmic implementation
   - /all/ code papers
-- consider "donating time" to help others
+- consider "donating time" to help others:
+  - reply to mailing list
+  - open an issue on [[https://github.com/MESAHub/mesa][gitHub]]
+  - open a PR on [[https://github.com/MESAHub/mesa][gitHub]]
+  - share your custom tools, make your science reproducible!
 - *Bonus*: [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
+
+**** Developing
+
+- [[https://github.com/mathren/compare_workdir_MESA][compare inlist ignoring order, comments, nesting, and defaults]]
 
 *** Requirements
 
@@ -52,4 +56,4 @@ Relevant MESA documentation pages:
 Contribute back ready-to-use routines:
 - [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 Tooling:
-- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlisted]]
+- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlist]]

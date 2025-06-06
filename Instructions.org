@@ -583,10 +583,53 @@ residual and driving the decrease in timesteps.
 *** Full solution minilab1
 
 An inlist with the full solution is provided as a hidden file
-=.inlist_solution=. You can rename it and/or point your main =inlist= to
-it (MESA will read a hidden file!)
+=.inlist_solution_minilab1=. You can rename it and/or point your main =inlist= to
+it. MESA will read a hidden file!
 
+:Hint:
+Open the main =inlist= and change every instance of the string
+=inlist_problem= with =.inlist_solution_minilab1=
 
+*N.B.:* don't forget the period at the *beginning* of the second string!
+:end:
+
+* Minilab 2
+
+This is a continuation of Minilab 1 - below we assume your
+=inlist_problem= is set in a way that bypassed the issue at step =1266= of
+this particular model.
+
+:Hint:
+You can continue by renaming the "hidden file" containing the solution
+named =.inlist_solution_minilab1= (note the leading period!) and
+overwrite the inlist we will be using (still =inlist_problem=). Make
+sure to rename or backup your current work first if you want to
+continue later. For a one-liner, from within the =15Msun_problem= folder
+do:
+
+#+begin_src bash
+ mv inlist_problem inlist_problem_backup && cp .inlist_solution_minilab1 inlist_problem
+#+end_src
+:end:
+
+We also assume your run has continued until the next issue. This
+should occur at timestep TIMESTEP.
+
+:Hint:
+If not yet, it may be taking too long for your computer. You can
+instead use the provided photo PHOTO.
+:end:
+
+*Task 1*:
+
+:Hint:
+This is the same as in Minilab 1!
+:end:
+
+* Conclusions
+
+Note how our massive star model took most of the timesteps to compute
+through the late burning phases!
 
 * Useful references
 Relevant MESA documentation pages:
