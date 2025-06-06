@@ -1,5 +1,6 @@
 #+title: The numerical nightmare that is late massive star evolution
 * Minilab 1
+
 Massive star models become numerically more challenging as they
 evolve. Issues manifest as plummeting timesteps below any threshold.
 Broadly speaking, these issues can be seeded in either "the core"
@@ -22,7 +23,6 @@ latest.
 Download from git the repo for this lecture and get into the folder
 with the following =bash= one-liner (*N.B.:* =&&= is a =bash= "and", which
 will execute the second command only if the first exits successfully):
-
 #+begin_src bash
 git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
 #+end_src
@@ -46,8 +46,7 @@ luminosities, for example for SN precursor alerts, you need at least
 core structure, you may get away with small nuclear reaction networks.
 
 :Hint:
-You can inspect the [[./15Msun_problem/15M_early_evol.mod][output *.mod file]], [[./15Msun_problem/LOGS/15M_early_evol.data][profile file]], and [[./15Msun_problem/LOGS/history_early.data][history file]]
-or just look at the [[./15Msun_problem/early_evolution.mp4][pgstar movie]] to see your initial conditions.
+You can inspect the [[./15Msun_problem/early_evolution.mp4][pgstar movie]] to see your initial conditions.
 :end:
 
 Ideally, we want to be able to run this to the onset of core collapse,
@@ -624,16 +623,13 @@ do:
 #+end_src
 :end:
 
+** A frustrating (but still common) situation: another problem arise
 We also assume your run has continued until the next issue. This
 should occur at timestep =1563=.
 
 :Hint:
 If not yet, it may be taking too long for your computer. You can
 instead use the provided photo =x562=.
-
-You can also inspect  [[./15Msun_problem/15M_late_evol.mod][the *.mod file]],
-[[./15Msun_problem/LOGS/15M_late_evol.data]] to study the initial
-conditions for Minilab 2.
 :end:
 
 *Task 1*: Turn on the debugging option that revealed the problematic
@@ -652,6 +648,14 @@ Add to activate debugging output for the solver:
 #+end_src
 :end:
 
+** Silicon core burning is very hard!
+- [[https://iopscience.iop.org/article/10.3847/1538-4365/acae8d][Jermyn et al. 2023]] (Sec. 10) suggests a potential solution =op_split_burn=
+- activation temperature issues: we are either below or already above,
+  or we have to fine-tune this (not good for a grid!), we will need to
+  re-run from scratch. *Fine tuned naturally at* =3e9=.
+- Realistically, if we want to reach the onset of core collapse, we
+  need to lower =min_timestep_limit=, a lot.
+
 * Conclusions
 
 Note how our massive star model took most of the timesteps to compute
@@ -666,5 +670,3 @@ Contribute back ready-to-use routines:
 Tooling:
 - [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
 * TODO
-- [ ] fix paths of early evolution (missing files)
-- [ ] expand on isotopes needed (maybe just citations)
