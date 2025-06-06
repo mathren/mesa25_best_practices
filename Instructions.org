@@ -238,10 +238,10 @@ the luminosity is a solver variable and there isn't really a
 =equL= may be.
 
 :Hint:
-This is a one liner to find all the instances of =equL=
-regardless of capitalization (=-I= option, Fortran 90 doesn't care!) and
-throughout =MESA_DIR= (=-R= option) including only =*.f90= files, with the
-output I get:
+This is a one liner to find all the instances of =equL= in the folder
+=MESA_DIR,= regardless of capitalization (=-I= option, Fortran 90 doesn't
+care!) and recursively (=-R= option) including only =*.f90= files
+(=--include= option):
 
 #+begin_src bash
       grep -IR --include="*.f90" "equL" $MESA_DIR
