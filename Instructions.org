@@ -3,7 +3,7 @@
 Massive star models become numerically more challenging as they
 evolve. Issues manifest as plummeting timesteps below any threshold.
 Broadly speaking, these issues can be seeded in either "the core"
-(where nuclear burning of heavy elements stiffens the equations)
+(where nuclear burning of heavier elements stiffens the equations)
 and/or "the envelope" (where small timesteps result in waves and
 occasionally spurious artificial accelerations). The two kind of
 issues can also interact non-linearly with each other, resulting in
@@ -28,7 +28,7 @@ git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_pra
 #+end_src
 :end:
 
-We will use a simple model of a 15M_{\odot} star (see [[./15Msun_early_evol/][the work directory]]) to
+We will use a simple model of a 15M_{\odot} star (see [[./15Msun_problem][the work directory]]) to
 illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number =1261=).
@@ -613,17 +613,31 @@ do:
 :end:
 
 We also assume your run has continued until the next issue. This
-should occur at timestep TIMESTEP.
+should occur at timestep =1563=.
 
 :Hint:
 If not yet, it may be taking too long for your computer. You can
-instead use the provided photo PHOTO.
+instead use the provided photo =x562=.
+
+You can also inspect  [[./15Msun_problem/15M_late_evol.mod][the *.mod file]],
+[[./15Msun_problem/LOGS/15M_late_evol.data]] to study the initial
+conditions for Minilab 2.
 :end:
 
-*Task 1*:
+*Task 1*: Turn on the debugging option that revealed the problematic
+residual in Minilab 1 and restart from the last photo (this will use
+your own calculation, but takes a few more steps to get to the issue),
+or use the provided foto (see hint above).
 
 :Hint:
-This is the same as in Minilab 1!
+You just need to add a line to =controls= and do =./re x562=
+:end:
+
+:Hint:
+Add to activate debugging output for the solver:
+#+begin_src fortran 90
+  report_solver_progress = .true.
+#+end_src
 :end:
 
 * Conclusions
