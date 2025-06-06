@@ -1,5 +1,5 @@
-* The numerical nightmare that is late massive star evolution
-
+#+title: The numerical nightmare that is late massive star evolution
+* Minilab 1
 Massive star models become numerically more challenging as they
 evolve. Issues manifest as plummeting timesteps below any threshold.
 Broadly speaking, these issues can be seeded in either "the core"
@@ -580,7 +580,15 @@ able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
 
-*** Useful references
+*** Full solution minilab1
+
+An inlist with the full solution is provided as a hidden file
+=.inlist_solution=. You can rename it and/or point your main =inlist= to
+it (MESA will read a hidden file!)
+
+
+
+* Useful references
 Relevant MESA documentation pages:
 - [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
 - [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
@@ -588,16 +596,3 @@ Contribute back ready-to-use routines:
 - [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 Tooling:
 - [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
-
-*** Full solution
-
-An inlist with the full solution is provided as a hidden file
-=.inlist_solution=. You can rename it and/or point your main =inlist= to
-it (MESA will read a hidden file!)
-
-** TODO
-
-- [ ] more on pgplots?
-- [ ] describe =report_solver_progress= output (see )
-- [ ] expand on viability of ignoring residuals
-- [ ] find physically satisfying solution
