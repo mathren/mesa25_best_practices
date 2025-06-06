@@ -17,10 +17,12 @@
 
 ;; Custom function to handle drawers
 (defun org-custom-md-drawer (drawer contents info)
-  "Transcode a DRAWER element from Org to custom shortcode format."
+  "Transcode a DRAWER element from Org to details block format."
   (let* ((name (org-element-property :drawer-name drawer))
-         (contents (or contents "")))
-    (format "{{< %s >}}\n%s{{</%s>}}" name contents name)))
+         (contents (or contents ""))
+         (title (capitalize name)))
+    (format "{{< details title=\"%s. Click on it to reveal it.\" closed=\"true\" >}}\n%s{{< /details >}}"
+            title contents)))
 
 ;; Function to export current buffer
 (defun org-export-to-custom-md-buffer ()

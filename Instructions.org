@@ -608,8 +608,3 @@ Open the main =inlist= and change every instance of the string
 Relevant MESA documentation pages:
 - [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
 - [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
-Contribute back ready-to-use routines:
-- [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
-Tooling:
-- [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
-* TODO
