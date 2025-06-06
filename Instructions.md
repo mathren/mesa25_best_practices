@@ -1,9 +1,3 @@
----
-weight: 1
-math: true
----
-
-
 # Minilab 1
 
 Massive star models become numerically more challenging as they
@@ -34,7 +28,7 @@ will execute the second command only if the first exits successfully):
 ```bash
 git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
 ```
-{{</Hint>}}
+{{< /Hint >}}
 
 We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](./15Msun_problem)) to
 illustrate these problems. In the interest of speed, we will use a
