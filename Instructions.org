@@ -33,6 +33,17 @@ illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number =1261=).
 
+*N.B.:* If you are interested in creating pre-SN models to study whether
+stars explode or not (and with what energies), you want to properly
+capture the free electron /profile/, which determines the effective
+Chandrasekhar mass of the core and thus its structure. Specifically,
+you want your results to be robust against adding more isotopes in
+your nuclear reaction network. For this, you need at least \sim80
+isotopes (e.g., [[https://ui.adsabs.harvard.edu/abs/2016ApJS..227...22F/abstract][Farmer et al. 2016]], [[https://ui.adsabs.harvard.edu/abs/2024RNAAS...8..152R/abstract][Renzo et al. 2024]], [[https://ui.adsabs.harvard.edu/abs/2025arXiv250300115G/abstract][Grichener et
+al. 2025]]). If you are interested in the nuclear neutrino
+luminosities, for example for SN precursor alerts, you need at least
+\sim200 (e.g., [[https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract][Farag et al. 2020]]).
+
 :Hint:
 You can inspect the [[./15Msun_problem/15M_early_evol.mod][output *.mod file]], [[./15Msun_problem/LOGS/15M_early_evol.data][profile file]], and [[./15Msun_problem/LOGS/history_early.data][history file]]
 or just look at the [[./15Msun_problem/early_evolution.mp4][pgstar movie]] to see your initial conditions.
