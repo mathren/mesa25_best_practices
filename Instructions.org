@@ -544,13 +544,13 @@ the =s%= pointer. For example, to change =max_model_number= (a =controls=
 setting), you can overwrite your =inlist= with:
 
 #+begin_src fortran 90
-   s% max_model_number = 1000
+   s% max_model_number = 1260
 #+end_src
 
 There are some examples of doing these in the =test_suite= and from
 reproducible publications on [[https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest][zenodo]]! See for example
-=$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90= for a complex
-example.
+=$MESA_DIR/star/test_suite/make_co_wd/src/run_star_extras.f90= or
+=$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90= for examples.
 
 *N.B.:* you can also use =b %= in the MESA =binary= module to change things
  of =binary_controls=.
