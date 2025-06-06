@@ -19,7 +19,7 @@ not all) stellar evolution codes stop at C core depletion at the
 latest.
 
 ** The starting point
-*Task 1*: Download the =15Msun_problem= folder.
+*Task 1*: Download the =15Msun_problem= folder from [[https://github.com/mathren/mesa25_best_practices/tree/main][gitHub]].
 
 :Hint:
 Download from git the repo for this lecture and get into the folder
