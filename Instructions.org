@@ -1,4 +1,5 @@
 #+title: The numerical nightmare that is late massive star evolution
+
 * Minilab 1
 
 Massive star models become numerically more challenging as they
@@ -51,7 +52,7 @@ You can inspect the [[./15Msun_problem/early_evolution.mp4][pgstar movie]] to se
 
 Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
-oxygen depletion and call it a success.
+oxygen depletion and call it a success for this mini lab.
 
 *N.B.:* =min_timestep_limit= is set to 0.1 seconds, too high for production
 models past O core burning, but it's sufficiently low that one may
@@ -65,11 +66,14 @@ the provided photo (=photos/x261=).
 
 :Hint:
 Without an argument =./re= will restart from the last photo saved on the
-disk, which should still be =x261=, and you can use the command line
-=touch= to update the time of last edit of a =photo= to trick MESA. We
-have modified the =./rn= bash script to add an extra check in case you
-really want to start from the beginning. *This is not something you
-should do during this lab*.
+disk, which should still be =x261=.
+
+*N.B.*: you can use the command line =touch= to update the time of last
+edit of a =photo= to trick MESA.
+
+*N.B.:* We have modified the =./rn= bash script to add an extra check in
+case you really want to start from the beginning. *This is not
+something you should do during this lab*.
 :end:
 
 The main =inlist= points to =inlist_problem= which is at this point is the
@@ -164,8 +168,8 @@ for the current call (=1=, =2=, ...). The most important things for us are
 the column containing =equ=-something and the column following =max corr=.
 
 =equ= is the name that MESA gives to the residuals, as you can verify
-checking the definitions in =$MESA_DIR/star_data/public/=. This is the
-place where all variables available to MESA are defined.
+checking the definitions in the files in =$MESA_DIR/star_data/public/=.
+This is the place where all variables available to MESA are defined.
 
 *Task 4*: Using =grep= (or similar tools) you can look for =equ= here and
 see if anything useful comes up, you should find something to help you
@@ -223,11 +227,8 @@ Thus, the =equ= column tells us which residual is largest for the
 proposed and rejected solution:, in this case initially it's =equ_he4=
 at iteration 1 of the solver, it can change at every iteration, until
 at the end it is =equL=. This is the thing that is making our model
-crash. Moreover, scrolling upward through the solver iterations we see
-that the residual (4^{th} but last column) is jumping from negative to
-positive from iteration =20= to iteration =21=. Finally, during these
-iterations, =lnd= (that is, physically, the density) is the problematic
-variable.
+crash. Finally, during these iterations, =lnd= (that is, physically, the
+density) is the problematic variable.
 
 At each iteration of the solver (shown as a line here), MESA is
 searching for a solution with a Generalized Newton-Raphson solver (see
@@ -242,8 +243,7 @@ solver to /not/ converge.
 
 But what is the equation for which the residual is =equL=? One would
 naively assume a luminosity equation given the name! However, in MESA
-the luminosity is a solver variable and there isn't really a
-"luminosity equation" (except for the local energy conservation).
+the luminosity is a solver variable.
 
 *Task 5:* Let's use tools such =grep= to inspect the code to find out what
 =equL= may be.
@@ -333,17 +333,23 @@ snippet:
 #+end_src
 
 which suggests that =equL= is the residual of the temperature gradient
-equation, *not* a (non-existing) luminosity equation. See also
-[[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]] Sec. 6.2 (specifically Eq. 8).
+equation, *not* a luminosity equation!
+#+begin_src latex
+  \frac{dT}{dm} = \frac{dP}{dm}\frac{T}{P}\nabla \ \ ,
+#+end_src
+where $T$ is the temperature, $m$ is Lagrangian mass coordinate, $P$
+ the pressure and $\nabla=\partial \ln(T)/\partial \ln(P)$ is the temperature gradient
+ provided by Mixing Length Theory (MLT). See also [[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]]
+ Sec. 6.2 (specifically Eq. 8) for the discretized formulation of this
+ equation.
 
-Why this (terrible) name then? In a star, the temperature gradient
-will adjust to carry the luminosity (leading to convection if the
-radiative gradient is insufficient). So we can use the luminosity to
-calculate the temperature gradient. However, it is numerically
-convenient to flip things, and use the temperature gradient equation
-to obtain the luminosity instead: ultimately =equL= is about the
-luminosity, but the equation it is the residual of is the temperature
-gradient equation
+Why this confusing name then? In a star, the temperature gradient will
+adjust to carry the luminosity (leading to convection if the radiative
+gradient is insufficient). So we can use the luminosity to calculate
+the temperature gradient. However, it is numerically convenient to
+flip things, and use the temperature gradient equation to obtain the
+luminosity instead: ultimately =equL= is about the luminosity, but the
+equation it is the residual of is the temperature gradient equation.
 
 **** *Optional*: confirming the bad derivative
 To confirm that it is the derivative of the residual =equL= w.r.t.
@@ -623,6 +629,18 @@ do:
 #+end_src
 :end:
 
+*Task 1:* Remove the stopping condition for oxygen depletion from your
+inlist.
+
+:Hint:
+This is set by a pair of =controls= settings.
+:end:
+
+:Hint:
+Search your =inlist_problem= for =o16=
+:end:
+
+
 ** A frustrating (but still common) situation: another problem arise
 We also assume your run has continued until the next issue. This
 should occur at timestep =1563=.
@@ -632,10 +650,12 @@ If not yet, it may be taking too long for your computer. You can
 instead use the provided photo =x562=.
 :end:
 
-*Task 1*: Turn on the debugging option that revealed the problematic
+*Task 2*: Turn on the debugging option that revealed the problematic
 residual in Minilab 1 and restart from the last photo (this will use
 your own calculation, but takes a few more steps to get to the issue),
 or use the provided foto (see hint above).
+
+*Task 3*: what residual is problematic? at step =1563=?
 
 :Hint:
 You just need to add a line to =controls= and do =./re x562=
@@ -648,7 +668,7 @@ Add to activate debugging output for the solver:
 #+end_src
 :end:
 
-** Silicon core burning is very hard!
+** TODO Silicon core burning is very hard!
 - [[https://iopscience.iop.org/article/10.3847/1538-4365/acae8d][Jermyn et al. 2023]] (Sec. 10) suggests a potential solution =op_split_burn=
 - activation temperature issues: we are either below or already above,
   or we have to fine-tune this (not good for a grid!), we will need to
@@ -669,4 +689,3 @@ Contribute back ready-to-use routines:
 - [[https://github.com/MESAHub/mesa-contrib][MESA contrib]]
 Tooling:
 - [[https://github.com/mathren/compare_workdir_MESA][compare MESA inlists]]
-* TODO
