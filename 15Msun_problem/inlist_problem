@@ -76,7 +76,7 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-max_model_number                                = 1562
+! max_model_number                                = 1562
 ! log_center_temp_upper_limit                   = 9.35d0
 
 ! wind
@@ -188,14 +188,13 @@ terminal_interval                               = 1
 
 ! SOLUTION BELOW -----------------------------------------
 ! ---------------------------------------------------------
-! report_solver_progress                        = .true. ! to debug
+report_solver_progress                        = .true. ! to debug
 convergence_ignore_equL_residuals               = .true. ! to bypass first problem from photo x261 (O burning)
 
-! op_split_burn                                   = .true. ! to bypass issue at Si burning
-! op_split_burn_min_T                             = 2d9    ! value for small networks
-! op_split_burn_eps                               = 1d-5   ! default
-! op_split_burn_odescal                           = 1d-5   ! default
-
-! min_timestep_limit                              = 1e-10  !sec ! 1e-20 !to be able to reach CC
+op_split_burn                                   = .true. ! to bypass issue at Si burning
+op_split_burn_min_T                             = 2d9    ! value for small networks
+op_split_burn_eps                               = 1d-5   ! default
+op_split_burn_odescal                           = 1d-5   ! default
+min_timestep_limit                              = 1e-20  !sec ! 1e-20 !to be able to reach CC
 
 / ! end of controls namelist
