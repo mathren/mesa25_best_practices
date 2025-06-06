@@ -1,4 +1,4 @@
-#+title: The numerical nightmare that is late massive star evolution
+#+title: Late massive star evolution: physics that challenges the numerics
 * Minilab 1
 
 Massive star models become numerically more challenging as they
