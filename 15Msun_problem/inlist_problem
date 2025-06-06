@@ -76,7 +76,9 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! log_center_temp_upper_limit = 9.35d0
+! log_center_temp_upper_limit                   = 9.35d0
+xa_central_lower_limit_species(1)               = 'o16'
+xa_central_lower_limit(1)                       = 1d-5  ! very low threshold to prevent stopping at ZAMS
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -125,9 +127,9 @@ min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
-! use_drag_energy                                 = .false.
-! drag_coefficient                                = 0.9d0
-! min_q_for_drag                                  = 0.8d0
+! use_drag_energy                               = .false.
+! drag_coefficient                              = 0.9d0
+! min_q_for_drag                                = 0.8d0
 
 ! nuclear physics
 ! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
@@ -184,5 +186,4 @@ photo_interval                                  = 25
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
-
 / ! end of controls namelist
