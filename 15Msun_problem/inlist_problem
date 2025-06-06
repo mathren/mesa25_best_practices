@@ -3,9 +3,9 @@
 create_pre_main_sequence_model                  = .false.
 
 save_model_when_terminate                       = .true.
-save_model_filename                             = '15M_early_evol.mod'
+save_model_filename                             = '15M_late_evol.mod'
 write_profile_when_terminate                    = .true.
-filename_for_profile_when_terminate             = 'LOGS/15M_early_evol.data'
+filename_for_profile_when_terminate             = 'LOGS/15M_late_evol.data'
 show_timestep_limit_counts_when_terminate       = .true.
 show_retry_counts_when_terminate                = .true.
 
@@ -76,7 +76,8 @@ initial_mass                                    = 15 ! in Msun units
 initial_z                                       = 0.02
 
 ! when to stop
-! log_center_temp_upper_limit = 9.35d0
+max_model_number                                = 1562
+! log_center_temp_upper_limit                   = 9.35d0
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
@@ -125,9 +126,9 @@ min_D_mix                                       = 1d-2
 
 
 ! hydro tweaks
-! use_drag_energy                                 = .false.
-! drag_coefficient                                = 0.9d0
-! min_q_for_drag                                  = 0.8d0
+! use_drag_energy                               = .false.
+! drag_coefficient                              = 0.9d0
+! min_q_for_drag                                = 0.8d0
 
 ! nuclear physics
 ! set approx22 fake factor to reproduce Ye ~ 0.43-0.44 at CC.
@@ -184,5 +185,17 @@ photo_interval                                  = 25
 history_interval                                = 1
 write_header_frequency                          = 10
 terminal_interval                               = 1
+
+! SOLUTION BELOW -----------------------------------------
+! ---------------------------------------------------------
+! report_solver_progress                        = .true. ! to debug
+convergence_ignore_equL_residuals               = .true. ! to bypass first problem from photo x261 (O burning)
+
+! op_split_burn                                   = .true. ! to bypass issue at Si burning
+! op_split_burn_min_T                             = 2d9    ! value for small networks
+! op_split_burn_eps                               = 1d-5   ! default
+! op_split_burn_odescal                           = 1d-5   ! default
+
+! min_timestep_limit                              = 1e-10  !sec ! 1e-20 !to be able to reach CC
 
 / ! end of controls namelist
