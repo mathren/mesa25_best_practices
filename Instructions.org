@@ -1,4 +1,6 @@
 #+title: Late massive star evolution: physics challenges to numerics
+#+author: [[mailto:mrenzo@arizona.edu][Mathieu Renzo]]
+
 * Minilab 1
 
 Massive star models become numerically more challenging as they

@@ -1,3 +1,5 @@
+;; generated with Anthropic Claude Sonnet 4 and a few trial and errors
+
 (require 'ox-md)
 
 ;; Define a custom backend that extends the markdown backend
