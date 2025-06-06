@@ -77,6 +77,8 @@ initial_z                                       = 0.02
 
 ! when to stop
 ! log_center_temp_upper_limit = 9.35d0
+xa_central_lower_limit_species(1)               = 'o16'
+xa_central_lower_limit(1)                       = 1d-5  ! very low threshold to prevent stopping at ZAMS
 
 ! wind
 hot_wind_scheme                                 = 'Dutch'
