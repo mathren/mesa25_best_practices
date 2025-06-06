@@ -1,4 +1,4 @@
-#+title: Late massive star evolution: physics that challenges the numerics
+#+title: Late massive star evolution: physics challenges to numerics
 * Minilab 1
 
 Massive star models become numerically more challenging as they
