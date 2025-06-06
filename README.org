@@ -4,7 +4,8 @@
 Materials for the Thursday morning lab at the [[https://mesa-leuven.4d-star.org/][MESA summer school 2025]]
 to be held in KU Leuven.
 
-The instructions for the lab are at [[./Instructions.org]].
+The instructions for the lab are at [[./Instructions.org]] exported in
+=markdown= format at [[./Instructions.md]].
 
 
 ** Lecture plan
