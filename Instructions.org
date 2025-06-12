@@ -56,11 +56,11 @@ Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
 oxygen depletion and call it a success.
 
-*N.B.:* =min_timestep_limit= is set to 0.1 seconds, too high for production
-models past O core burning, but it's sufficiently low that one may
-not want to continue the evolution in testing, and in this particular
-case, we have tested that blindly lowering the =min_timestep_limit= will
-only delay the issue, not fundamentally change it.
+*N.B.:* =min_timestep_limit= is set to 0.1 seconds, too high for
+production models past O core burning, but it's sufficiently low that
+one may not want to continue the evolution in testing, and in this
+particular case, we have tested that blindly lowering the
+=min_timestep_limit= down to =1d-20= will not bypass this issue.
 
 ** Common situation: Running into a problem
 *Task 2:* After initializing MESA and running =./clean && ./mk= start from
@@ -505,6 +505,7 @@ Which gives me:
   ./wd_nova_burst/inlist_setup:   convergence_ignore_equL_residuals = .true.
 #+end_src
 :end:
+
 In =$MESA_DIR/star/private/hydro_temperature.f90=, where we previously
 found the definition of =equL=, we can see a useful comment:
 
@@ -526,7 +527,7 @@ dynamical phase of evolution (massive stars going to core collapse,
 flashes, etc.): if your model is not perfectly in hydrostatic
 equilibrium, there is no reason to expect that this equation can be
 solved perfectly, because one of its implicit assumptions is not
-verified.
+exactly verified.
 
 This is what allows this "dirty trick" without having to throw away
 all the possible science!
@@ -541,13 +542,44 @@ If everything went well, the run should now proceed past model =1266=:
 you have successfully bypassed the problem! This model should continue
 until Oxygen depletion (defined as $X_{c}(^{16}\mathrm{O})\le 10^{-5}$). *Congratulations!*
 
-*Bonus task*: you can edit the stopping condition in your =inlist_problem=
-to evolve past Oxygen depletion. A second
-crash occurs during Si core burning, which is caused by the treatment
-of nuclear processes. You can use the things you learned in this lab
-to debug this, but remember that the nuclear reaction network we are
-using here is insufficient for science focusing on the core of evolved
-massive stars!
+*Bonus task 1*: You can edit the stopping condition in your
+=inlist_problem= to evolve past Oxygen depletion. You may also want to
+decrease the =min_timestep_limit= to something smaller than 1 second. A
+second crash should occur during Si core burning. You can use the
+things you learned in this lab to find the problem and try to fix it.
+Remember that the nuclear reaction network we are using here is
+insufficient for science focusing on the core of evolved massive
+stars!
+
+*Bonus task 2*: Find an alternative possible solution by reformulating
+the problematic equation (*N.B.:* this is untested by us!). You probably
+don't want to change which system of ODE you are solving on the fly
+(although there are exceptions, for example when a very massive star
+approaches pair instability you may want to change the momentum
+equation!), so you may need to restart the model from ZAMS.
+
+:Hint:
+Use =grep= in the =$MESA_DIR/star/defaults/= folder to efficiently skim
+the documentation off-line based on keywords.
+:end:
+
+:Hint:
+Focus on =$MESA_DIR/star/defaults/controls.defaults=, this file
+typically contains the settings specifying form of equations and
+numerical tolerances.
+:end:
+
+:Hint:
+Search for =T_gradient= to see the other available options!
+:end:
+
+
+*Bonus task 3*: Change the nuclear reaction network to =mesa_204.net= and
+try to push this model to the onset of core collapse. If you succeed,
+do a resolution test! If the quantities of interests are resolved, you
+may have a science-grade setup now! (*N.B.:* do not attempt this *during*
+the school, it will take too much computing time! This is also
+untested by us.)
 
 ** After you found the solution
 
