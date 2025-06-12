@@ -356,14 +356,13 @@ which suggests that =equL= *is the residual of the temperature gradient
 equation*, not a (non-existing) luminosity equation. See also [[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et
 al. 2011]] Sec. 6.2 (specifically Eq. 8).
 
-Why this (terrible) name then? In a star, the temperature gradient
-will adjust to carry the luminosity (leading to convection if the
-radiative gradient is insufficient). So we can use the luminosity to
-calculate the temperature gradient. However, it is numerically
-convenient to flip things, and use the temperature gradient equation
-to obtain the luminosity instead: ultimately =equL= is about the
-luminosity, but the equation it is the residual of is the temperature
-gradient equation
+Why this name then? In a star, the temperature gradient will adjust to
+carry the luminosity (leading to convection if the radiative gradient
+is insufficient). So we can use the luminosity to calculate the
+temperature gradient. However, it is numerically convenient to flip
+things, and use the temperature gradient equation to obtain the
+luminosity instead: ultimately =equL= is about the luminosity, but the
+equation it is the residual of is the temperature gradient equation.
 
 **** *Optional*: confirming the bad derivative
 To confirm that it is the derivative of the residual =equL= w.r.t.
@@ -419,16 +418,17 @@ typically need to be tailored to that specific problem.
 ** Finding a solution
 
 There may be more than one! This is where computing stellar structure
-and evolution models is a bit of an art, experience, trial and error,
-and /many/ wasted CPUh.
+and evolution models is a bit of an art: experience from
+trial-and-error and /many/ wasted CPUh is the best way to become
+proficient at finding solutions and/or work-arounds.
 
 Since the problem is in =equL=, one naive thing one can do is to ignore
 the residuals of those equation. In fact, there is a =controls= flag to
 do this in MESA: this suggests this is a common enough problem!
 
-*Task 6*: Find the flag that may help us, add it to =inlist_problem= (and
-maybe remove the debug options we previously activated) and restart
-the run.
+*Task 6*: Find the flag that may help us and add it to =inlist_problem= (and
+maybe remove the debug options we previously activated to reduce I/O).
+Then restart the run.
 
 :Hint:
 Look in =$MESA_DIR/star/defaults/controls.defaults= or in the
@@ -505,7 +505,6 @@ Which gives me:
   ./wd_nova_burst/inlist_setup:   convergence_ignore_equL_residuals = .true.
 #+end_src
 :end:
-
 In =$MESA_DIR/star/private/hydro_temperature.f90=, where we previously
 found the definition of =equL=, we can see a useful comment:
 
@@ -530,10 +529,25 @@ solved perfectly, because one of its implicit assumptions is not
 verified.
 
 This is what allows this "dirty trick" without having to throw away
-all the possible science! If everything went well, the run should now
-proceed past model =1266=: you have successfully bypassed the problem!
-This model should continue until a second crash occurs during Si core
-burning. *Congratulations!*
+all the possible science!
+
+*N.B.:* The fact that we ignore the residual in =equL= does not imply this
+equation will necessarily not be satisfied, we are just telling the
+solver that we are willing to accept solutions with large residual,
+and we hope that the numerical tolerances on other quantities will
+give a reasonable answer even if numerically not perfect.
+
+If everything went well, the run should now proceed past model =1266=:
+you have successfully bypassed the problem! This model should continue
+until Oxygen depletion (defined as $X_{c}(^{16}\mathrm{O})\le 10^{-5}$). *Congratulations!*
+
+*Bonus task*: you can edit the stopping condition in your =inlist_problem=
+to evolve past Oxygen depletion. A second
+crash occurs during Si core burning, which is caused by the treatment
+of nuclear processes. You can use the things you learned in this lab
+to debug this, but remember that the nuclear reaction network we are
+using here is insufficient for science focusing on the core of evolved
+massive stars!
 
 ** After you found the solution
 
