@@ -674,6 +674,14 @@ able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
 
+Finally, here we focused on showing the use of debugging options
+accessible from the inlist. Adding `print *,` statements in your
+`run_star/binary_extras.f90` can also be helpful (especially if you are
+doing something custom there). Ultimately, sometimes one **really** needs
+to get their hands dirty, and dig into the modules. If and when you
+reach this point, it may be useful to look at the [MESA documentation
+on how to develop](https://docs.mesastar.org/en/latest/developing.html) and reach out to the mailing list!
+
 #### Full solution minilab1
 
 An inlist with the full solution is provided as a hidden file
