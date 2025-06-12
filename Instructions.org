@@ -44,8 +44,9 @@ your nuclear reaction network. For this, you need at least \sim80
 isotopes (e.g., [[https://ui.adsabs.harvard.edu/abs/2016ApJS..227...22F/abstract][Farmer et al. 2016]], [[https://ui.adsabs.harvard.edu/abs/2024RNAAS...8..152R/abstract][Renzo et al. 2024]], [[https://ui.adsabs.harvard.edu/abs/2025arXiv250300115G/abstract][Grichener et
 al. 2025]]). If you are interested in the nuclear neutrino
 luminosities, for example for SN precursor alerts, you need at least
-\sim200 (e.g., [[https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract][Farag et al. 2020]]). If your science doesn't depend on the
-core structure, you may get away with small nuclear reaction networks.
+\sim200 (e.g., [[https://ui.adsabs.harvard.edu/abs/2020MNRAS.496.3961K/abstract][Kato et al. 2020]], [[https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract][Farag et al. 2020]]). If your science
+doesn't depend on the core structure, you may get away with small
+nuclear reaction networks.
 
 :Hint:
 You can inspect the [[./15Msun_problem/early_evolution.mp4][pgstar movie]] to see your initial conditions.
@@ -229,18 +230,36 @@ crash. Moreover, scrolling upward through the solver iterations we see
 that the residual (4^{th} but last column) is jumping from negative to
 positive from iteration =20= to iteration =21=. Finally, during these
 iterations, =lnd= (that is, physically, the density) is the problematic
-variable.
-
-At each iteration of the solver (shown as a line here), MESA is
+variable. At each iteration of the solver (shown as a line here), MESA is
 searching for a solution with a Generalized Newton-Raphson solver (see
 sec. 6.3 of [[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]]): the iterative corrections to an
 initial guess (the solution of the previous timestep) depend on the
 derivatives of the residuals w.r.t. the variables (see excellent
 [[https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif][wikipedia gif]] for intuition on this).
 
-So the correct way to interpret this output is that the residual =equL=
-has a bad derivative w.r.t. the variable =dens= that is causing the
-solver to /not/ converge.
+*N.B.:* Unless the timestep is too small, the initial guess is usually
+not a good solution in many different ways, and which residual is
+initially largest among many too large values is not particularly
+important. The lines with the latest solver iterations are the most
+important here.
+
+So the correct way to interpret this output is that the equation =equL=
+cannot be satisfied within the defined numerical tolerances of the
+Newton-Raphson solver. This in general can occur because of multiple
+reason (and potentially requiring different fixes/work-arounds), for
+example:
+- an assumption of the equation is violated (\Rightarrow maybe you want to
+  reformulate the equation differently, often there are options
+  already available in MESA or you can implement your own with
+  =run_star_extras.f90=)
+- too large numerical errors introduced in the discretization (\Rightarrow
+  remeshing before the problem arise can help)
+- One or more inputs or parameters of the equation are too noisy
+  (\Rightarrow you may need to remesh based on a quantity different than the one
+  calculated by the problematic equation).
+
+Moreover, the terminal output also shows that the residual =equL= has a
+bad derivative w.r.t. the variable =dens= in the last line.
 
 But what is the equation for which the residual is =equL=? One would
 naively assume a luminosity equation given the name! However, in MESA
@@ -313,7 +332,6 @@ Which produces this output:
 It looks like it appears in the file
 =$MESA_DIR/star/private/hydro_temperature.f90= (among others).
 :end:
-
 In fact, =equL= is a short hand for =s%equ(i_equL, :)= which is assigned
 in =$MESA_DIR/star/private/hydro_temperature.f90= at line 274 by this
 snippet:
@@ -334,9 +352,9 @@ snippet:
    s% equ(i_equL, k) = resid%val
 #+end_src
 
-which suggests that =equL= is the residual of the temperature gradient
-equation, *not* a (non-existing) luminosity equation. See also
-[[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]] Sec. 6.2 (specifically Eq. 8).
+which suggests that =equL= *is the residual of the temperature gradient
+equation*, not a (non-existing) luminosity equation. See also [[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et
+al. 2011]] Sec. 6.2 (specifically Eq. 8).
 
 Why this (terrible) name then? In a star, the temperature gradient
 will adjust to carry the luminosity (leading to convection if the
@@ -608,5 +626,6 @@ Open the main =inlist= and change every instance of the string
 
 * Useful references
 Relevant MESA documentation pages:
-- [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][Best practices]]
-- [[https://docs.mesastar.org/en/latest/developing/debugging.html][Debugging]]
+- [[https://docs.mesastar.org/en/latest/using_mesa/best_practices.html][MESA docs: "Best practices"]]
+- [[https://docs.mesastar.org/en/latest/developing/debugging.html][MESA docs: "Debugging"]]
+- [[https://billwolf.space/projects/mesa_debugging/][Bill Wolf's tutorial on debugging]]
