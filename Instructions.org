@@ -12,7 +12,7 @@ occasionally spurious artificial accelerations). The two kind of
 issues can also interact non-linearly with each other, resulting in
 the majority of a grid crashing.
 
-*N.B.:* this is not exclusively a "MESA" problem, but a result of the
+*Note:* this is not exclusively a "MESA" problem, but a result of the
 physics being described by progressively stiffer equations that are
 numerically more challenging to solve. This is why most (but notably
 not all) stellar evolution codes stop at C core depletion at the
@@ -35,7 +35,7 @@ illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number =1261=).
 
-*N.B.:* If you are interested in creating pre-SN models to study whether
+*Note:* If you are interested in creating pre-SN models to study whether
 stars explode or not (and with what energies), you want to properly
 capture the free electron /profile/, which determines the effective
 Chandrasekhar mass of the core and thus its structure. Specifically,
@@ -56,7 +56,7 @@ Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
 oxygen depletion and call it a success.
 
-*N.B.:* =min_timestep_limit= is set to 0.1 seconds, too high for
+*Note:* =min_timestep_limit= is set to 0.1 seconds, too high for
 production models past O core burning, but it's sufficiently low that
 one may not want to continue the evolution in testing, and in this
 particular case, we have tested that blindly lowering the
@@ -79,7 +79,7 @@ The main =inlist= points to =inlist_problem= which is at this point is the
 same as =inlist_early_evol= (use to create the pre-computed initial
 conditions) except for the stopping criterion.
 
-*N.B.:* It's not exactly a bare-bone model, but definitely not
+*Note:* It's not exactly a bare-bone model, but definitely not
 science-ready!
 
 Watch your model evolve. The terminal output is often the quickest way
@@ -143,7 +143,7 @@ and then =./re= to restart.
 :end:
 
 The run now produces more output per timestep, and thus scrolls faster
-(but you can still pause it with =Ctrl-Z=, restart with =f g=), but apart
+(but you can still pause it with =Ctrl-Z=, restart with =fg=), but apart
 from that we haven't changed anything and it should crash in the same
 way.
 
@@ -234,10 +234,10 @@ variable. At each iteration of the solver (shown as a line here), MESA is
 searching for a solution with a Generalized Newton-Raphson solver (see
 sec. 6.3 of [[https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3][Paxton et al. 2011]]): the iterative corrections to an
 initial guess (the solution of the previous timestep) depend on the
-derivatives of the residuals w.r.t. the variables (see excellent
+derivatives of the residuals with respect to the variables (see excellent
 [[https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif][wikipedia gif]] for intuition on this).
 
-*N.B.:* Unless the timestep is too small, the initial guess is usually
+*Note:* Unless the timestep is too small, the initial guess is usually
 not a good solution in many different ways, and which residual is
 initially largest among many too large values is not particularly
 important. The lines with the latest solver iterations are the most
@@ -259,7 +259,7 @@ example:
   calculated by the problematic equation).
 
 Moreover, the terminal output also shows that the residual =equL= has a
-bad derivative w.r.t. the variable =dens= in the last line.
+bad derivative with respect to the variable =dens= in the last line.
 
 But what is the equation for which the residual is =equL=? One would
 naively assume a luminosity equation given the name! However, in MESA
@@ -365,7 +365,7 @@ luminosity instead: ultimately =equL= is about the luminosity, but the
 equation it is the residual of is the temperature gradient equation.
 
 **** *Optional*: confirming the bad derivative
-To confirm that it is the derivative of the residual =equL= w.r.t.
+To confirm that it is the derivative of the residual =equL= with respect to
 the density =lnd= is behaving bad, let's get some info about those
 by uncommenting and setting in our inlist the following:
 
@@ -378,14 +378,14 @@ solver_test_partials_var_name = 'lnd'
 solver_test_partials_dx_0 = 1d-5
 #+end_src
 
-*N.B.:* At this stage you may also want to set
+*Note:* At this stage you may also want to set
 =solver_save_photo_call_number= equal to the solver call of the problem
 (in our case =1399=) so MESA will save a =photo= just before this solver
 call, saving you time to debug.
 
 This tells MESA we want more output at solver call number =1399=, we
 want to inspect the =21= iteration of the solver, and we want to see the
-partial derivatives of the luminosity equation w.r.t. =lnd=. *This will
+partial derivatives of the luminosity equation with respect to =lnd=. *This will
 also make MESA crash right after that iteration of the solver*: you
 will need to undo these changes to continue. Scroll up to see the
 output:
@@ -399,19 +399,19 @@ the problem!
 *** So this is the (first) problem!
 
 The derivative of the residual of the equation for the temperature
-gradient, a.k.a. =equL= w.r.t. the variable =lnd=, the density is causing
+gradient, a.k.a. =equL= with respect to the variable =lnd=, the density is causing
 flip-flopping large corrections to the trial solution and preventing
 the solver from finding a satisfying solution. This suggest the
 calculation of this derivative is too imprecise -- this may not
 advance us so much, but at least we know which equation is giving us
 numerical troubles!
 
-*N.B.:* Sometimes it easier to spot problems making plots, or staring at
+*Note:* Sometimes it easier to spot problems making plots, or staring at
 =pgstar=. The technique illustrated here is a last resort when
 plotting and physical plus numerical intuition are not enough to get out of
 a hole.
 
-*N.B.:* This technique is general and can be used for any model
+*Note:* This technique is general and can be used for any model
 crashing. Once you've identified the problem, the solution will
 typically need to be tailored to that specific problem.
 
@@ -532,7 +532,7 @@ exactly verified.
 This is what allows this "dirty trick" without having to throw away
 all the possible science!
 
-*N.B.:* The fact that we ignore the residual in =equL= does not imply this
+*Note:* The fact that we ignore the residual in =equL= does not imply this
 equation will necessarily not be satisfied, we are just telling the
 solver that we are willing to accept solutions with large residual,
 and we hope that the numerical tolerances on other quantities will
@@ -552,7 +552,7 @@ insufficient for science focusing on the core of evolved massive
 stars!
 
 *Bonus task 2*: Find an alternative possible solution by reformulating
-the problematic equation (*N.B.:* this is untested by us!). You probably
+the problematic equation (*Note:* this is untested by us!). You probably
 don't want to change which system of ODE you are solving on the fly
 (although there are exceptions, for example when a very massive star
 approaches pair instability you may want to change the momentum
@@ -577,7 +577,7 @@ Search for =T_gradient= to see the other available options!
 *Bonus task 3*: Change the nuclear reaction network to =mesa_204.net= and
 try to push this model to the onset of core collapse. If you succeed,
 do a resolution test! If the quantities of interests are resolved, you
-may have a science-grade setup now! (*N.B.:* do not attempt this *during*
+may have a science-grade setup now! (*Note:* do not attempt this *during*
 the school, it will take too much computing time! This is also
 untested by us.)
 
