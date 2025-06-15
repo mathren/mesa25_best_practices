@@ -385,10 +385,10 @@ call, saving you time to debug.
 
 This tells MESA we want more output at solver call number =1399=, we
 want to inspect the =21= iteration of the solver, and we want to see the
-partial derivatives of the luminosity equation with respect to =lnd=. *This will
-also make MESA crash right after that iteration of the solver*: you
-will need to undo these changes to continue. Scroll up to see the
-output:
+partial derivatives of the luminosity equation with respect to =lnd=.
+*This will also make MESA crash right after that iteration of the
+solver*: you will need to undo these changes to continue. Scroll up (or
+re-run) to see the output:
 
 #+DOWNLOADED: screenshot @ 2025-06-04 16:29:50
 [[file:.org_notes_figures/Late_massive_star_evolution/2025-06-04_16-29-50_screenshot.png]]
