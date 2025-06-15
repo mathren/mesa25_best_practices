@@ -91,7 +91,7 @@ it typing* =f g=.
 
 At model =1266= you should hit the =hydro_failed= condition.
 
-At this point, for an individual model I may fiddle a bit to find a
+At this point, for an individual model one may fiddle a bit to find a
 work-around (e.g., fiddling with increasing resolution, decreasing
 =min_timestep_limit=), but that can often become a messy random walk in
 the forest of MESA parameters. Sometimes, a problem cannot be worked
@@ -177,13 +177,12 @@ see if anything useful comes up, you should find something to help you
 understand what this is.
 
 :Hint:
-  Sometimes I do this from the =$MESA_DIR= directory if I don't know
-  where to start from, it's only more work to weed out output you
-  don't need.
+  If you don't know where to start, you can =grep= the entire =$MESA_DIR=
+  directory, but it's more work to weed out output you don't need.
 :end:
 
 :Hint:
-This is the =bash= command I used and the result for me:
+This is an example =bash= command:
 #+begin_src bash
   grep -R "equ" $MESA_DIR/star_data/public/*
 #+end_src
