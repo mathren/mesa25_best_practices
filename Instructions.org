@@ -32,7 +32,7 @@ git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_pra
 #+end_src
 :end:
 
-We will use a simple model of a 15M_{\odot} star (see [[./15Msun_problem][the work directory]]) to
+We will use a simple model of a 15M_{\odot} star (see [[https://github.com/mathren/mesa25_best_practices/tree/main/15Msun_problem][the work directory]]) to
 illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number =1261=).
