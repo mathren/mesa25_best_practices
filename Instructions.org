@@ -9,9 +9,9 @@ Broadly speaking, these issues can be seeded in either "the core"
 (where nuclear burning of heavier elements stiffens the equations)
 and/or "the envelope" (where small timesteps result in waves and
 occasionally spurious artificial accelerations, convection can be
-inefficient and density inversions occur, (see [[https://ui.adsabs.harvard.edu/abs/2013ApJS..208....4P/abstract][Paxton et al. 2013]],
-[[https://ui.adsabs.harvard.edu/abs/2023ApJS..265...15J/abstract][Jermyn et al. 2023]]). The two kind of issues can also interact
-non-linearly with each other, resulting in the majority of a grid
+inefficient and density inversions occur, see [[https://ui.adsabs.harvard.edu/abs/2013ApJS..208....4P/abstract][Paxton et al. 2013]],
+[[https://ui.adsabs.harvard.edu/abs/2023ApJS..265...15J/abstract][Jermyn et al. 2023]]). Each kind of issues can also interact
+non-linearly with the other, resulting in the majority of a grid
 crashing.
 
 *Note:* this is not exclusively a "MESA" problem, but a result of the
@@ -137,7 +137,7 @@ control and restart the run again.
 
 :Hint:
 The line you need to add to your =controls= namelist is the following:
-#+begin_src fortran 90
+#+begin_src Fortran 90
   report_solver_progress = .true.
 #+end_src
 and then =./re= to restart.
@@ -336,7 +336,7 @@ In fact, =equL= is a short hand for =s%equ(i_equL, :)= which is assigned
 in =$MESA_DIR/star/private/hydro_temperature.f90= at line 274 by this
 snippet:
 
-#+begin_src fortran 90
+#+begin_src Fortran 90
    gradT = s% gradT_ad(k)
    dlnTdm = dlnPdm*gradT
 
@@ -369,7 +369,7 @@ To confirm that it is the derivative of the residual =equL= with respect to
 the density =lnd= is behaving bad, let's get some info about those
 by uncommenting and setting in our inlist the following:
 
-#+begin_src fortran 90
+#+begin_src Fortran 90
 solver_test_partials_call_number = 1399
 solver_test_partials_iter_number = 21
 solver_test_partials_k = 21
@@ -442,7 +442,7 @@ editor) for =convergence_ignore= to find suitable options
 
 :Hint:
 Try adding this to the =controls= namelist of your inlist:
-#+begin_src fortran 90
+#+begin_src Fortran 90
     convergence_ignore_equL_residuals = .true.
 #+end_src
 :end:
@@ -509,7 +509,7 @@ Which gives me:
 In =$MESA_DIR/star/private/hydro_temperature.f90=, where we previously
 found the definition of =equL=, we can see a useful comment:
 
-#+begin_src fortran
+#+begin_src Fortran 90
  ! dT/dm = dP/dm * T/P * grad_T, grad_T = dlnT/dlnP from MLT.
  ! but use hydrostatic value for dP/dm in this.
  ! this is because of limitations of MLT for calculating grad_T.
@@ -607,8 +607,8 @@ or temperature) and change the values of entries in =controls= through
 the =s%= pointer. For example, to change =max_model_number= (a =controls=
 setting), you can overwrite your =inlist= with:
 
-#+begin_src fortran 90
-   s% max_model_number = 1260
+#+begin_src Fortran 90
+s% max_model_number = 1260
 #+end_src
 
 There are some examples of doing these in the =test_suite= and from
