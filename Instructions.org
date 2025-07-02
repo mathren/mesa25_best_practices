@@ -358,13 +358,13 @@ al. 2011]] Sec. 6.2 (specifically Eq. 8).
 
 Why this name then? In a star, the temperature gradient will adjust to
 carry the luminosity (leading to convection if the radiative gradient
-is insufficient). So we can use the luminosity to calculate the
-temperature gradient. However, it is numerically convenient to flip
-things, and use the temperature gradient equation to obtain the
-luminosity instead: ultimately =equL= is about the luminosity, but the
-equation it is the residual of is the temperature gradient equation.
+is insufficient). So we can use the temperature gradient to calculate
+the luminosity. However, it is numerically convenient to flip things,
+and use luminosity equation to get the temperature gradient instead:
+ultimately =equL= is about the luminosity, but the equation it is the
+residual of is the temperature gradient equation.
 
-**** *Optional*: confirming the bad derivative
+**** *Optional*: confirming the bad term
 To confirm that it is the derivative of the residual =equL= with respect to
 the density =lnd= is behaving bad, let's get some info about those
 by uncommenting and setting in our inlist the following:
@@ -394,7 +394,8 @@ re-run) to see the output:
 [[file:.org_notes_figures/Late_massive_star_evolution/2025-06-04_16-29-50_screenshot.png]]
 
 which confirms that the suspected partial derivative is the culprit of
-the problem!
+the problem, specifically the line starting with =*****= indicates the
+potential problem.
 
 *** So this is the (first) problem!
 
