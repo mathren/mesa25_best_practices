@@ -1,14 +1,16 @@
 #+Title: Best practices - MESA Summer School 2025
 #+date: <2025-07-24 Thu>
 
-Materials for the Thursday morning lab at the [[https://mesa-leuven.4d-star.org/][MESA summer school 2025]]
-to be held in KU Leuven.
+This repository was used to develop the materials for the Thursday
+morning lab at the [[https://mesa-leuven.4d-star.org/][MESA summer school 2025]] in KU Leuven.
 
-The instructions for the lab are at [[./Instructions.org]] exported in
-=markdown= format at [[./Instructions.md]].
+The official online tutorial is available [[https://mesa-leuven.4d-star.org/tutorials/thursday/morning-session/][here]], and the associated
+lecture was given by [[https://sites.google.com/view/aldanagrichener][@AldanaGrichener]].
 
+The local copy of the instructions for the lab are at
+[[./Instructions.org]] exported in =markdown= format at [[./Instructions.md]].
 
-** Lecture plan
+** Tentative lecture plan
 *** Best Practices
 **** Debugging
 
